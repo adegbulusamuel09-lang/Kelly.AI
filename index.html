@@ -1,1 +1,732 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090b10">
+<title>KELLY AI | Free Fire Intelligence</title>
+
+<style>
+:root {
+  --bg:#080a0f;
+  --panel:#11151d;
+  --panel2:#171d27;
+  --orange:#ff6b18;
+  --gold:#ffbd45;
+  --text:#f4f5f7;
+  --muted:#9099a8;
+  --border:rgba(255,255,255,.09);
+}
+
+* {
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 80% 0%,rgba(255,91,18,.13),transparent 40%),
+    var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+button,input {
+  font:inherit;
+}
+
+button {
+  cursor:pointer;
+}
+
+.nav {
+  height:72px;
+  padding:0 6%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid var(--border);
+  background:rgba(8,10,15,.88);
+  backdrop-filter:blur(12px);
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+
+.brand {
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo {
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,var(--orange),#a62d0a);
+  border-radius:12px;
+  color:white;
+  font-size:22px;
+  font-weight:900;
+  box-shadow:0 0 24px #ff6b1835;
+}
+
+.brand-name {
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+.brand-name span {
+  color:var(--orange);
+}
+
+.status {
+  display:flex;
+  gap:8px;
+  align-items:center;
+  font-size:11px;
+  color:#aeb6c2;
+  letter-spacing:1px;
+}
+
+.dot {
+  width:8px;
+  height:8px;
+  background:#40e88b;
+  border-radius:50%;
+  box-shadow:0 0 10px #40e88b;
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  50% {opacity:.35;transform:scale(.7)}
+}
+
+.hero {
+  padding:65px 6% 38px;
+  max-width:1300px;
+  margin:auto;
+}
+
+.eyebrow {
+  color:var(--orange);
+  font-size:11px;
+  letter-spacing:3px;
+  font-weight:bold;
+  margin-bottom:20px;
+}
+
+h1 {
+  font-size:clamp(38px,7vw,76px);
+  line-height:1.02;
+  font-weight:900;
+  letter-spacing:-3px;
+}
+
+h1 span {
+  color:var(--orange);
+}
+
+.hero p {
+  color:var(--muted);
+  max-width:570px;
+  line-height:1.7;
+  margin-top:20px;
+}
+
+.hero-actions {
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:28px;
+}
+
+.btn {
+  border:1px solid var(--border);
+  padding:14px 20px;
+  border-radius:9px;
+  color:white;
+  background:var(--panel2);
+  transition:.2s;
+}
+
+.btn:hover {
+  transform:translateY(-2px);
+  border-color:var(--orange);
+}
+
+.btn.primary {
+  background:var(--orange);
+  color:#111;
+  border-color:var(--orange);
+  font-weight:900;
+}
+
+.stats {
+  display:flex;
+  flex-wrap:wrap;
+  gap:25px;
+  margin-top:30px;
+}
+
+.stat {
+  font-size:11px;
+  color:var(--muted);
+  letter-spacing:1px;
+}
+
+.stat strong {
+  color:white;
+  margin-right:5px;
+}
+
+.main {
+  max-width:1300px;
+  padding:0 6% 70px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1.1fr;
+  gap:20px;
+}
+
+.cards {
+  display:grid;
+  gap:15px;
+}
+
+.card {
+  background:linear-gradient(145deg,#151a23,#0e1118);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:23px;
+  position:relative;
+  overflow:hidden;
+  transition:.25s;
+}
+
+.card:hover {
+  border-color:#ff6b1860;
+  transform:translateY(-3px);
+}
+
+.card-icon {
+  font-size:24px;
+  margin-bottom:15px;
+}
+
+.card h3 {
+  font-size:15px;
+  letter-spacing:1px;
+  margin-bottom:10px;
+}
+
+.card p {
+  font-size:13px;
+  line-height:1.6;
+  color:var(--muted);
+}
+
+.card-link {
+  margin-top:17px;
+  color:var(--orange);
+  background:none;
+  border:0;
+  font-size:11px;
+  font-weight:bold;
+  letter-spacing:1px;
+}
+
+.chat {
+  border:1px solid rgba(255,107,24,.3);
+  border-radius:16px;
+  overflow:hidden;
+  background:#10141b;
+  display:flex;
+  flex-direction:column;
+  min-height:540px;
+  box-shadow:0 0 40px #ff6b1808;
+}
+
+.chat-header {
+  padding:17px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:#151a22;
+}
+
+.kelly-profile {
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.kelly-avatar {
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#ff8b2b,#b93112);
+  font-weight:900;
+  font-size:18px;
+  box-shadow:0 0 20px #ff6b1830;
+}
+
+.kelly-profile h3 {
+  font-size:13px;
+  letter-spacing:1px;
+}
+
+.kelly-profile small {
+  color:#55dc8b;
+  font-size:10px;
+  display:block;
+  margin-top:4px;
+}
+
+.header-actions {
+  display:flex;
+  gap:7px;
+}
+
+.icon-btn {
+  background:#202631;
+  border:1px solid var(--border);
+  color:#b7c0ce;
+  border-radius:8px;
+  padding:9px;
+}
+
+.messages {
+  flex:1;
+  padding:18px;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  min-height:350px;
+  max-height:510px;
+  scroll-behavior:smooth;
+}
+
+.message {
+  max-width:90%;
+  padding:13px 15px;
+  font-size:13px;
+  line-height:1.65;
+  border-radius:12px;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  animation:appear .25s ease;
+}
+
+@keyframes appear {
+  from {opacity:0;transform:translateY(8px)}
+  to {opacity:1;transform:translateY(0)}
+}
+
+.message.kelly {
+  align-self:flex-start;
+  background:#1a202a;
+  border:1px solid var(--border);
+  border-top-left-radius:3px;
+}
+
+.message.user {
+  align-self:flex-end;
+  background:#8d350f;
+  border:1px solid #ff792b55;
+  border-top-right-radius:3px;
+}
+
+.message a {
+  color:#ffb06e;
+  text-decoration:underline;
+}
+
+.typing {
+  color:var(--muted);
+  font-size:12px;
+  padding:4px;
+}
+
+.quick {
+  padding:0 15px 12px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.quick button {
+  border:1px solid var(--border);
+  color:#b7c0ce;
+  background:#171d26;
+  border-radius:20px;
+  padding:9px 12px;
+  font-size:11px;
+}
+
+.quick button:hover {
+  border-color:var(--orange);
+  color:white;
+}
+
+.input-area {
+  padding:13px;
+  border-top:1px solid var(--border);
+  background:#0d1117;
+}
+
+.input-row {
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
+.input-row input {
+  flex:1;
+  min-width:0;
+  background:#171d26;
+  border:1px solid var(--border);
+  color:white;
+  outline:none;
+  padding:14px;
+  border-radius:10px;
+}
+
+.input-row input:focus {
+  border-color:#ff6b1880;
+}
+
+.send {
+  width:46px;
+  height:46px;
+  border:0;
+  border-radius:10px;
+  background:var(--orange);
+  color:#111;
+  font-weight:bold;
+}
+
+.disclaimer {
+  text-align:center;
+  color:#707987;
+  font-size:10px;
+  margin-top:10px;
+}
+
+.footer {
+  padding:25px 6%;
+  border-top:1px solid var(--border);
+  text-align:center;
+  color:#707987;
+  font-size:11px;
+}
+
+.footer span {
+  color:var(--orange);
+}
+
+.toast {
+  position:fixed;
+  bottom:25px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#222a35;
+  border:1px solid var(--border);
+  padding:12px 18px;
+  border-radius:10px;
+  font-size:12px;
+  display:none;
+  z-index:99;
+}
+
+@media(max-width:850px) {
+  .main {
+    grid-template-columns:1fr;
+  }
+  .hero {
+    padding-top:45px;
+  }
+  .chat {
+    min-height:500px;
+  }
+}
+
+@media(max-width:480px) {
+  .nav {
+    padding:0 5%;
+    height:62px;
+  }
+  .hero {
+    padding:40px 5% 25px;
+  }
+  h1 {
+    letter-spacing:-2px;
+  }
+  .main {
+    padding:0 5% 40px;
+  }
+  .status {
+    font-size:9px;
+  }
+  .messages {
+    padding:13px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="nav">
+  <div class="brand">
+    <div class="logo">K</div>
+    <div class="brand-name">KELLY<span>.AI</span></div>
+  </div>
+  <div class="status">
+    <span class="dot"></span>
+    AI INTERFACE
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="eyebrow">FREE FIRE INTELLIGENCE SYSTEM</div>
+
+  <h1>GAME KNOWLEDGE.<br>
+  <span>UPDATES.</span> STRATEGY.</h1>
+
+  <p>
+    Your Free Fire companion. Explore game knowledge, characters,
+    tactics, patch information and research through Kelly's AI interface.
+  </p>
+
+  <div class="hero-actions">
+    <button class="btn primary" onclick="openChat()">
+      ASK KELLY ↗
+    </button>
+
+    <button class="btn" onclick="ask('Tell me useful Free Fire tips for beginners')">
+      EXPLORE
+    </button>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><strong>◈</strong> GAME INTEL</div>
+    <div class="stat"><strong>⌁</strong> AI CHAT</div>
+    <div class="stat"><strong>◎</strong> WEB READY</div>
+  </div>
+</section>
+
+<main class="main">
+
+  <section class="cards">
+
+    <div class="card">
+      <div class="card-icon">◈</div>
+      <h3>GAME INTEL</h3>
+      <p>Ask about characters, weapons, game modes, events and update information.</p>
+      <button class="card-link" onclick="ask('Tell me about Free Fire characters and their abilities')">
+        EXPLORE CHARACTERS ↗
+      </button>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">⌁</div>
+      <h3>TACTICS LAB</h3>
+      <p>Explore skill combinations, gameplay strategies, movement and mode-specific tips.</p>
+      <button class="card-link" onclick="ask('Give me Free Fire gameplay strategies for Clash Squad')">
+        GET STRATEGIES ↗
+      </button>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">◎</div>
+      <h3>WEB RESEARCH</h3>
+      <p>Kelly's chat is designed to connect to an AI service and web research backend.</p>
+      <button class="card-link" onclick="ask('What Free Fire information can you help me with?')">
+        TEST KELLY ↗
+      </button>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <h3>QUICK COMMANDS</h3>
+      <p>Use the quick buttons below or ask your own question directly.</p>
+      <button class="card-link" onclick="clearChat()">
+        CLEAR CHAT ↗
+      </button>
+    </div>
+
+  </section>
+
+  <section class="chat" id="chat">
+
+    <div class="chat-header">
+      <div class="kelly-profile">
+        <div class="kelly-avatar">K</div>
+        <div>
+          <h3>KELLY</h3>
+          <small>AI ASSISTANT</small>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="icon-btn" onclick="toggleSound()" title="Sound">♫</button>
+        <button class="icon-btn" onclick="clearChat()" title="Clear chat">↻</button>
+      </div>
+    </div>
+
+    <div class="messages" id="messages">
+      <div class="message kelly">
+        Hey! I'm Kelly. 🔥<br><br>
+        Ask me about Free Fire characters, weapons, maps, strategies,
+        Clash Squad, Battle Royale and game knowledge.<br><br>
+        <b>Note:</b> Live AI and web search are not connected yet.
+        We're building that next!
+      </div>
+    </div>
+
+    <div class="quick">
+      <button onclick="ask('Free Fire character skills')">Characters</button>
+      <button onclick="ask('Best Clash Squad strategies')">CS Tips</button>
+      <button onclick="ask('Explain Free Fire weapon types')">Weapons</button>
+      <button onclick="ask('How can I improve my gameplay?')">Gameplay</button>
+    </div>
+
+    <div class="input-area">
+      <div class="input-row">
+        <input id="question" type="text"
+          placeholder="Ask Kelly anything..."
+          autocomplete="off">
+        <button class="send" onclick="sendMessage()">➤</button>
+      </div>
+      <div class="disclaimer">
+        KELLY AI • LIVE AI CONNECTION COMING NEXT
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="footer">
+  KELLY<span>.AI</span> &nbsp; • &nbsp; FREE FIRE INTELLIGENCE
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const messages = document.getElementById("messages");
+const question = document.getElementById("question");
+let soundEnabled = false;
+
+function openChat() {
+  document.getElementById("chat").scrollIntoView({
+    behavior:"smooth"
+  });
+  question.focus();
+}
+
+function addMessage(text,who="kelly") {
+  const div = document.createElement("div");
+  div.className = "message " + who;
+  div.textContent = text;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function ask(text) {
+  question.value = text;
+  sendMessage();
+  openChat();
+}
+
+function clearChat() {
+  messages.innerHTML = "";
+  addMessage("Chat cleared! 🔥 What would you like to know about Free Fire?");
+}
+
+function toggleSound() {
+  soundEnabled = !soundEnabled;
+  showToast(soundEnabled ? "Sound effects enabled" : "Sound effects disabled");
+}
+
+function showToast(text) {
+  const toast = document.getElementById("toast");
+  toast.textContent = text;
+  toast.style.display = "block";
+  setTimeout(() => toast.style.display="none",2500);
+}
+
+function localReply(text) {
+  const q = text.toLowerCase();
+
+  if(q.includes("character") || q.includes("skill")) {
+    return "Free Fire characters have different abilities that can support different playstyles. Some skills focus on movement, recovery, protection or team support. Tell me your game mode and preferred style, and I can help you compare combinations. Live character data will be available after we connect Kelly to AI and web search.";
+  }
+
+  if(q.includes("clash squad") || q.includes("cs")) {
+    return "Clash Squad strategy depends on your team, available equipment, map and opponents. Communicate with your team, use cover, avoid rushing alone, and adapt your purchases to the round. Once connected to AI, I can provide more detailed strategies for specific maps and situations.";
+  }
+
+  if(q.includes("weapon") || q.includes("gun")) {
+    return "Free Fire weapons are suited to different ranges and situations. Shotguns are designed for close-range encounters, assault rifles are versatile, and sniper rifles support long-range play. Your preferred weapon and game mode matter when choosing a loadout.";
+  }
+
+  if(q.includes("improve") || q.includes("gameplay") || q.includes("tip")) {
+    return "To improve your gameplay, practice consistently, learn the maps, use cover, pay attention to positioning, and review what went wrong after matches. Focus on one skill at a time instead of changing everything at once.";
+  }
+
+  return "I received your question: \"" + text + "\" 🔥\\n\\nKelly's interface is working! However, this version is currently in demo mode. We still need to connect a real AI service and web-search backend so I can research your question and give current, sourced answers.";
+}
+
+async function sendMessage() {
+  const text = question.value.trim();
+  if(!text) return;
+
+  addMessage(text,"user");
+  question.value = "";
+
+  const typing = document.createElement("div");
+  typing.className = "typing";
+  typing.textContent = "Kelly is thinking...";
+  messages.appendChild(typing);
+  messages.scrollTop = messages.scrollHeight;
+
+  // AI backend will be connected in the next stage.
+  await new Promise(resolve => setTimeout(resolve,650));
+
+  typing.remove();
+  addMessage(localReply(text));
+
+  if(soundEnabled) {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.frequency.value = 620;
+      gain.gain.value = 0.04;
+      osc.start();
+      osc.stop(ctx.currentTime + 0.08);
+    } catch(e) {}
+  }
+}
+
+question.addEventListener("keydown",function(e) {
+  if(e.key === "Enter") sendMessage();
+});
+</script>
+
+</body>
+</html>
+
