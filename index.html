@@ -2,1515 +2,340 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080b15">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#10091e">
 <title>Kelly AI | Free Fire Hub</title>
-
 <style>
-:root{
- --bg:#080b15;
- --panel:#11182a;
- --panel2:#171f34;
- --cyan:#55eaff;
- --purple:#a78bfa;
- --pink:#ff65d8;
- --green:#55ffb0;
- --gold:#ffd166;
- --text:#f3f6ff;
- --muted:#9ba9c4;
- --border:#293653;
- --orb1:#55eaff;
- --orb2:#6957ff;
-}
+:root{--bg:#090713;--panel:#151024;--panel2:#201635;--purple:#a855f7;--pink:#ec4899;--cyan:#67e8f9;--text:#f4efff;--muted:#aaa0bf;--line:#34264b;--glow:rgba(168,85,247,.35)}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
- margin:0;
- background:var(--bg);
- color:var(--text);
- font-family:system-ui,-apple-system,Segoe UI,sans-serif;
- overflow-x:hidden;
-}
-button,input{font:inherit}
-button{cursor:pointer}
-body:before{
- content:"";
- position:fixed;
- inset:0;
- pointer-events:none;
- z-index:-1;
- background:
- radial-gradient(circle at 10% 10%,#4338ca22,transparent 35%),
- radial-gradient(circle at 90% 30%,#06b6d422,transparent 35%),
- radial-gradient(circle at 50% 100%,#8b5cf622,transparent 45%);
-}
-body:after{
- content:"";
- position:fixed;
- inset:0;
- z-index:-1;
- opacity:.09;
- background-image:
- linear-gradient(#8da4d322 1px,transparent 1px),
- linear-gradient(90deg,#8da4d322 1px,transparent 1px);
- background-size:35px 35px;
-}
-a{color:var(--cyan);text-decoration:none}
-button{transition:.2s}
-button:hover{transform:translateY(-2px)}
-button:active{transform:scale(.96)}
-
-header{
- position:sticky;
- top:0;
- z-index:50;
- display:flex;
- align-items:center;
- justify-content:space-between;
- padding:12px 5%;
- background:#080b15e8;
- backdrop-filter:blur(20px);
- border-bottom:1px solid var(--border);
-}
-.logo{
- font-size:1.35rem;
- font-weight:950;
- letter-spacing:1px;
-}
-.logo span{color:var(--cyan)}
-.logo small{
- display:block;
- font-size:.65rem;
- color:var(--muted);
- letter-spacing:3px
-}
-nav{
- display:flex;
- gap:20px;
- align-items:center
-}
-nav a{
- color:var(--muted);
- font-size:.9rem
-}
-nav a:hover{color:var(--cyan)}
-.menu{
- display:none;
- background:var(--panel);
- color:white;
- border:1px solid var(--border);
- padding:9px;
- border-radius:10px
-}
-
-.hero{
- max-width:1200px;
- margin:auto;
- padding:60px 5% 35px;
- display:grid;
- grid-template-columns:1.1fr .9fr;
- align-items:center;
- gap:30px;
- min-height:570px
-}
-.badge{
- display:inline-flex;
- gap:8px;
- align-items:center;
- padding:8px 13px;
- border:1px solid #55eaff44;
- background:#55eaff0c;
- border-radius:30px;
- color:var(--cyan);
- font-size:.78rem;
- letter-spacing:1px
-}
-h1{
- font-size:clamp(3rem,8vw,6rem);
- line-height:.94;
- letter-spacing:-3px;
- margin:24px 0
-}
-.gradient{
- background:linear-gradient(90deg,#55eaff,#9c84ff,#ff65d8);
- -webkit-background-clip:text;
- background-clip:text;
- color:transparent
-}
-.hero p{
- max-width:520px;
- color:var(--muted);
- line-height:1.8
-}
-.actions{
- display:flex;
- gap:10px;
- flex-wrap:wrap;
- margin-top:22px
-}
-.primary{
- background:linear-gradient(110deg,#167cbd,#7356ed);
- color:white;
- border:0;
- padding:13px 18px;
- border-radius:13px;
- font-weight:800;
- box-shadow:0 5px 25px #5865f244
-}
-.secondary{
- background:var(--panel);
- border:1px solid var(--border);
- color:white;
- padding:13px 18px;
- border-radius:13px
-}
-.heroVisual{
- min-height:360px;
- position:relative;
- display:grid;
- place-items:center
-}
-.energy{
- position:absolute;
- width:270px;
- height:270px;
- border:1px solid #55eaff35;
- border-radius:50%;
- animation:spin 18s linear infinite
-}
-.energy:before{
- content:"";
- position:absolute;
- inset:30px;
- border:1px dashed #a78bfa66;
- border-radius:50%
-}
-.energy:after{
- content:"";
- position:absolute;
- inset:-18px;
- border:1px solid #ff65d833;
- border-radius:50%;
- transform:rotateX(70deg)
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-.bigOrb{
- width:210px;
- height:210px;
- border-radius:50%;
- position:relative;
- background:radial-gradient(circle at 30% 25%,#d7ffff,#55eaff 15%,#6555ff 43%,#211346 72%,#080b15 80%);
- box-shadow:0 0 55px #55eaff33,inset -20px -20px 45px #0009;
- animation:float 4s ease-in-out infinite
-}
-.bigOrb:before{
- content:"K";
- position:absolute;
- inset:0;
- display:grid;
- place-items:center;
- font-size:5rem;
- font-weight:950;
- color:#fff;
- text-shadow:0 0 25px white
-}
-@keyframes float{
- 50%{transform:translateY(-15px)}
-}
-.floatingCard{
- position:absolute;
- background:#11182add;
- border:1px solid #384764;
- border-radius:14px;
- padding:12px;
- backdrop-filter:blur(10px);
- box-shadow:0 12px 35px #0004
-}
-.floatingCard.one{left:0;top:15%}
-.floatingCard.two{right:0;bottom:12%}
-.floatingCard small{color:var(--muted)}
-
-section{
- max-width:1200px;
- margin:auto;
- padding:45px 5%
-}
-.sectionHead{
- display:flex;
- justify-content:space-between;
- align-items:end;
- gap:15px;
- margin-bottom:22px
-}
-.sectionHead h2{
- margin:0;
- font-size:clamp(1.6rem,4vw,2.5rem)
-}
-.sectionHead p{color:var(--muted);margin:7px 0 0}
-.panel{
- background:linear-gradient(145deg,#131c30,#0d1423);
- border:1px solid var(--border);
- border-radius:20px;
- padding:20px;
- box-shadow:0 12px 40px #0002
-}
-.grid{
- display:grid;
- grid-template-columns:repeat(3,minmax(0,1fr));
- gap:15px
-}
-.card{
- position:relative;
- overflow:hidden;
- background:linear-gradient(145deg,#151f35,#101625);
- border:1px solid var(--border);
- border-radius:18px;
- padding:19px;
- transition:.25s
-}
-.card:hover{
- transform:translateY(-5px);
- border-color:#55eaff77;
- box-shadow:0 10px 35px #55eaff0a
-}
-.card:before{
- content:"";
- position:absolute;
- top:0;
- left:0;
- width:100%;
- height:2px;
- background:linear-gradient(90deg,transparent,var(--cyan),var(--purple),transparent);
- opacity:.7
-}
-.cardIcon{
- font-size:2rem;
- margin-bottom:10px
-}
-.card h3{margin:8px 0}
-.card p{
- color:var(--muted);
- line-height:1.65;
- font-size:.9rem
-}
-.card button{
- background:#1c2942;
- border:1px solid #354968;
- color:white;
- border-radius:10px;
- padding:9px 12px
-}
-.card button:hover{border-color:var(--cyan)}
-.statGrid{
- display:grid;
- grid-template-columns:repeat(4,1fr);
- gap:12px
-}
-.stat{
- text-align:center;
- padding:18px;
- background:var(--panel);
- border:1px solid var(--border);
- border-radius:15px
-}
-.stat b{
- display:block;
- font-size:1.7rem;
- color:var(--cyan)
-}
-.stat span{font-size:.82rem;color:var(--muted)}
-
-.searchBox{
- display:flex;
- gap:10px;
- margin-bottom:18px
-}
-.searchBox input,.chatInput input{
- flex:1;
- min-width:0;
- background:#080e1b;
- color:white;
- border:1px solid #33445f;
- padding:13px;
- border-radius:12px;
- outline:none
-}
-.searchBox input:focus,.chatInput input:focus{
- border-color:var(--cyan);
- box-shadow:0 0 0 2px #55eaff12
-}
-.filters{
- display:flex;
- flex-wrap:wrap;
- gap:8px;
- margin-bottom:18px
-}
-.filter{
- color:#c6d2e7;
- background:#141e31;
- border:1px solid #2b3b56;
- padding:8px 12px;
- border-radius:30px;
- font-size:.82rem
-}
-.filter.active{
- color:#07111c;
- background:var(--cyan);
- border-color:var(--cyan);
- font-weight:800
-}
-.libraryCard{min-height:205px}
-.libraryCard .tag{
- display:inline-block;
- color:var(--cyan);
- font-size:.72rem;
- margin-bottom:7px
-}
-.noResults{
- grid-column:1/-1;
- text-align:center;
- color:var(--muted);
- padding:30px
-}
-.tipBox{
- border:1px solid #a78bfa44;
- background:linear-gradient(120deg,#a78bfa0b,#55eaff0b);
- border-radius:17px;
- padding:20px;
- line-height:1.7
-}
-.tipBox h3{margin-top:0;color:var(--purple)}
-.twoCols{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:15px
-}
-footer{
- text-align:center;
- color:var(--muted);
- padding:30px;
- border-top:1px solid var(--border)
-}
-
-/* Kelly chat */
-.chatWindow{
- position:fixed;
- right:14px;
- bottom:85px;
- z-index:100;
- width:min(390px,calc(100vw - 28px));
- display:none;
- background:#0e1728;
- border:1px solid #55eaff66;
- border-radius:20px;
- overflow:hidden;
- box-shadow:0 20px 70px #0009
-}
-.chatWindow.open{display:block}
-.chatHeader{
- padding:15px;
- display:flex;
- align-items:center;
- justify-content:space-between;
- background:linear-gradient(100deg,#132a43,#202043);
- border-bottom:1px solid var(--border)
-}
-.chatHeader strong{color:var(--cyan)}
-.chatHeader button{
- background:#1a2940;
- color:white;
- border:1px solid var(--border);
- padding:6px 10px;
- border-radius:9px
-}
-.chatLog{
- height:310px;
- overflow-y:auto;
- padding:12px
-}
-.message{
- padding:11px 13px;
- margin:8px 0;
- border-radius:13px;
- line-height:1.55;
- font-size:.9rem;
- white-space:pre-wrap;
- overflow-wrap:anywhere
-}
-.bot{
- background:#17243a;
- border:1px solid #33445f
-}
-.me{
- background:#19374a;
- margin-left:35px
-}
-.chatInput{
- display:flex;
- gap:8px;
- padding:12px;
- border-top:1px solid var(--border)
-}
-.chatInput button{
- background:linear-gradient(110deg,#167cbd,#7356ed);
- color:white;
- border:0;
- border-radius:10px;
- padding:10px 14px
-}
-
-/* Floating Kelly orb */
-.orbButton{
- position:fixed;
- right:17px;
- bottom:15px;
- z-index:110;
- width:65px;
- height:65px;
- border-radius:50%;
- border:2px solid #d8ffff;
- color:white;
- font-size:1.6rem;
- background:radial-gradient(circle at 30% 25%,#fff,var(--orb1),var(--orb2),#150d38);
- box-shadow:0 0 25px var(--orb1),inset -8px -10px 20px #0006;
- touch-action:none;
- user-select:none;
- -webkit-user-select:none;
- cursor:grab;
- transition:box-shadow .35s,border-color .35s,background .35s
-}
-.orbButton:active{cursor:grabbing}
-.orbButton.pulse{
- animation:pulse .4s ease
-}
-@keyframes pulse{
- 50%{transform:scale(1.18)}
-}
-.soundButton{
- position:fixed;
- left:12px;
- bottom:14px;
- z-index:90;
- border:1px solid var(--border);
- background:#121a2a;
- color:white;
- padding:9px 12px;
- border-radius:25px
-}
-.reveal{
- opacity:0;
- transform:translateY(25px);
- transition:.7s
-}
-.reveal.show{
- opacity:1;
- transform:none
-}
-@media(max-width:800px){
- nav{display:none}
- nav.open{
- display:flex;
- position:absolute;
- top:60px;
- left:0;
- right:0;
- background:#0c1323;
- padding:18px;
- flex-direction:column;
- border-bottom:1px solid var(--border)
- }
- .menu{display:block}
- .hero{
- grid-template-columns:1fr;
- padding-top:45px;
- min-height:unset
- }
- .heroVisual{min-height:310px}
- .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
- .statGrid{grid-template-columns:repeat(2,1fr)}
- .twoCols{grid-template-columns:1fr}
-}
-@media(max-width:480px){
- .grid{grid-template-columns:1fr}
- .heroVisual{min-height:280px}
- .bigOrb{width:175px;height:175px}
- .energy{width:230px;height:230px}
- .sectionHead{align-items:start;flex-direction:column}
- h1{letter-spacing:-2px}
-}
+body{margin:0;background:radial-gradient(ellipse at 20% 0,#281144 0,transparent 45%),radial-gradient(ellipse at 90% 25%,#102b3c 0,transparent 35%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;overflow-x:hidden}
+button,input,textarea{font:inherit}
+button{cursor:pointer;color:inherit;border:1px solid var(--line);background:var(--panel2);border-radius:13px;padding:11px 14px}
+button:hover{border-color:var(--purple);box-shadow:0 0 18px var(--glow)}
+.wrap{max-width:980px;margin:auto;padding:18px 15px 90px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:0;background:rgba(9,7,19,.82);backdrop-filter:blur(14px);padding:10px 0;z-index:5}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:20px}
+.logo{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--pink),var(--cyan));box-shadow:0 0 20px var(--glow);display:grid;place-items:center;font-size:21px}
+.topactions{display:flex;gap:7px}
+.hero{padding:28px 5px 22px}
+.eyebrow{color:var(--cyan);font-size:12px;letter-spacing:2px;font-weight:800}
+.hero h1{font-size:clamp(30px,8vw,48px);line-height:1.05;margin:10px 0}
+.hero h1 span{background:linear-gradient(90deg,#c084fc,#f472b6,#67e8f9);background-clip:text;color:transparent}
+.hero p{color:var(--muted);max-width:620px;line-height:1.6}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{background:linear-gradient(145deg,rgba(32,22,53,.94),rgba(16,12,28,.96));border:1px solid var(--line);border-radius:18px;padding:16px;min-height:120px;transition:.25s;box-shadow:0 8px 25px rgba(0,0,0,.16)}
+.card h3{margin:7px 0 5px;font-size:16px}
+.card p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+.emoji{font-size:23px}
+.section{margin-top:28px}
+.sectionhead{display:flex;justify-content:space-between;align-items:end;margin-bottom:12px}
+.sectionhead h2{margin:0;font-size:21px}
+.sectionhead small{color:var(--muted)}
+.chatbox{border:1px solid var(--line);border-radius:20px;background:rgba(18,13,31,.95);overflow:hidden}
+.chathead{padding:13px 15px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px}
+.online{width:9px;height:9px;background:#4ade80;border-radius:50%;box-shadow:0 0 12px #4ade80}
+.messages{padding:13px;min-height:180px;max-height:420px;overflow:auto;display:flex;flex-direction:column;gap:11px}
+.msg{max-width:92%;padding:12px 13px;border-radius:15px;line-height:1.55;font-size:14px;white-space:pre-wrap}
+.kelly{align-self:flex-start;background:#211638;border:1px solid #3c2b57}
+.you{align-self:flex-end;background:#412269;border:1px solid #7545a0}
+.inputrow{display:flex;gap:8px;padding:11px;border-top:1px solid var(--line)}
+.inputrow input{flex:1;min-width:0;background:#0d0918;color:var(--text);border:1px solid var(--line);border-radius:13px;padding:12px}
+.quick{display:flex;gap:8px;overflow:auto;padding:0 12px 12px}
+.quick button{white-space:nowrap;font-size:12px;padding:9px 11px}
+.featuregrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.feature{padding:14px;background:#130e21;border:1px solid var(--line);border-radius:15px}
+.feature strong{display:block;margin-bottom:5px}
+.feature p{font-size:13px;color:var(--muted);margin:0;line-height:1.5}
+.music{background:linear-gradient(120deg,#24113e,#142735);border:1px solid var(--line);border-radius:18px;padding:16px}
+.music input{display:block;margin:12px 0;max-width:100%;color:var(--muted)}
+audio{width:100%}
+.orb{position:fixed;right:20px;bottom:22px;width:64px;height:64px;border-radius:50%;z-index:20;background:linear-gradient(135deg,#a855f7,#ec4899,#22d3ee);box-shadow:0 0 25px rgba(168,85,247,.55);display:grid;place-items:center;font-size:27px;border:2px solid #ffffff40;touch-action:none;user-select:none;cursor:grab;animation:bob 3s ease-in-out infinite}
+.orb:active{cursor:grabbing}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s,transform .65s}
+.reveal.show{opacity:1;transform:translateY(0)}
+.footer{text-align:center;color:var(--muted);font-size:12px;padding:35px 0}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:#201635;border:1px solid var(--purple);border-radius:20px;padding:10px 15px;display:none;z-index:30}
+.searchlinks{display:flex;gap:8px;flex-wrap:wrap}
+.searchlinks a{color:var(--cyan);text-decoration:none;border:1px solid var(--line);padding:9px 12px;border-radius:12px;font-size:13px}
+.small{font-size:12px;color:var(--muted)}
+@media(min-width:700px){.cards{grid-template-columns:repeat(4,1fr)}.featuregrid{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
-
 <body>
+<div class="wrap">
 
-<header>
- <div class="logo">KELLY<span>.AI</span>
-  <small>FREE FIRE INTELLIGENCE</small>
- </div>
- <button class="menu" onclick="toggleMenu()">☰</button>
- <nav id="nav">
-  <a href="#home">Home</a>
-  <a href="#library">FF Library</a>
-  <a href="#tips">Tips</a>
-  <a href="#assistant">Kelly AI</a>
- </nav>
+<header class="top">
+<div class="brand">
+<div class="logo">K</div>
+<div>Kelly<span style="color:var(--purple)">.AI</span>
+<div class="small">FREE FIRE INTELLIGENCE HUB</div>
+</div>
+</div>
+<div class="topactions">
+<button id="soundBtn" title="Sound">🔊</button>
+<button onclick="scrollToChat()">💬 Ask Kelly</button>
+</div>
 </header>
 
-<!-- HERO -->
+<section class="hero reveal">
+<div class="eyebrow">YOUR GAMING COMPANION</div>
+<h1>Level up with<br><span>Kelly AI.</span></h1>
+<p>Explore Free Fire, learn weapons and skills, get phone-specific gaming tips, and ask Kelly questions. Tap the floating orb to change its colour—or drag it anywhere.</p>
+<div class="searchlinks">
+<a href="https://ff.garena.com/" target="_blank" rel="noopener">Official Free Fire ↗</a>
+<a href="https://www.google.com/search?q=Free+Fire+latest+news" target="_blank" rel="noopener">Search latest news ↗</a>
+</div>
+</section>
 
-<div class="hero" id="home">
+<section class="section reveal">
+<div class="sectionhead"><h2>Free Fire Hub</h2><small>Explore</small></div>
+<div class="cards">
+<div class="card"><div class="emoji">🔫</div><h3>Weapons</h3><p>ARs, SMGs, shotguns, snipers, pistols and how to use them.</p></div>
+<div class="card"><div class="emoji">🧑‍🚀</div><h3>Characters & Skills</h3><p>Character abilities, skill combinations and roles.</p></div>
+<div class="card"><div class="emoji">🐾</div><h3>Pets</h3><p>Pet abilities and combinations for different play styles.</p></div>
+<div class="card"><div class="emoji">🗺️</div><h3>Maps & Modes</h3><p>BR, Clash Squad, Lone Wolf, map basics and tactics.</p></div>
+<div class="card"><div class="emoji">🏆</div><h3>Ranks</h3><p>Rank progression, stars, points and competitive basics.</p></div>
+<div class="card"><div class="emoji">🎯</div><h3>Training</h3><p>Movement, aim practice, positioning and decision-making.</p></div>
+<div class="card"><div class="emoji">📰</div><h3>Updates</h3><p>Use the live-search links to verify current patch notes and events.</p></div>
+<div class="card"><div class="emoji">📱</div><h3>Phone Lab</h3><p>Gaming settings guidance by phone model and touch condition.</p></div>
+</div>
+</section>
 
- <div class="reveal">
-  <div class="badge">⚡ YOUR GAMING COMMAND CENTER</div>
+<section class="section reveal" id="chat">
+<div class="sectionhead"><h2>Ask Kelly</h2><small>Answers appear here</small></div>
+<div class="chatbox">
+<div class="chathead"><span class="online"></span><strong>Kelly Assistant</strong><span class="small">• Ready</span></div>
+<div class="messages" id="messages">
+<div class="msg kelly">Hey! I'm Kelly. Ask me about Free Fire guns, characters, pets, modes, rank, tactics, phone settings—or general questions. I can answer from my built-in guide, but I can't verify live updates unless you use the search links.</div>
+</div>
+<div class="quick">
+<button onclick="quick('Suggest a beginner-friendly Clash Squad strategy')">CS strategy</button>
+<button onclick="quick('Explain Free Fire weapon categories')">Weapon guide</button>
+<button onclick="quick('How can I practice aim and movement?')">Aim & movement</button>
+<button onclick="quick('Help me choose phone gaming settings')">Phone settings</button>
+<button onclick="quick('Explain character skills and combinations')">Skill combinations</button>
+</div>
+<div class="inputrow">
+<input id="question" placeholder="Ask Kelly anything…" autocomplete="off">
+<button id="send">Send ➤</button>
+<button id="voice" title="Voice input">🎙️</button>
+</div>
+</div>
+</section>
 
-  <h1>LEVEL UP<br><span class="gradient">YOUR GAME.</span></h1>
+<section class="section reveal">
+<div class="sectionhead"><h2>Phone-specific Gaming Lab</h2><small>Tell Kelly your device</small></div>
+<div class="featuregrid">
+<div class="feature"><strong>🎚️ Sensitivity guidance</strong><p>Kelly can give starting values and explain how to adjust them through controlled testing—not promise guaranteed headshots.</p></div>
+<div class="feature"><strong>🖐️ HUD & controls</strong><p>Discuss button layout, finger count, screen size, touch issues and comfortable controls.</p></div>
+<div class="feature"><strong>⚙️ Performance</strong><p>Graphics, frame rate, storage, background apps and heat-management basics.</p></div>
+</div>
+</section>
 
-  <p>
-   Explore Free Fire knowledge, learn about characters,
-   weapons, maps, ranks and strategies.
-   Meet Kelly—your gaming information assistant.
-  </p>
+<section class="section reveal">
+<div class="sectionhead"><h2>Music Corner 🎵</h2><small>Play your own audio</small></div>
+<div class="music">
+<p>Choose an audio file saved on your phone to play here. Kelly doesn't include copyrighted lobby tracks.</p>
+<input type="file" id="audioFile" accept="audio/*">
+<audio id="player" controls></audio>
+<p class="small">For official music, check Free Fire's official channels or search for the track through a licensed music service.</p>
+<div class="searchlinks">
+<a href="https://www.youtube.com/results?search_query=Free+Fire+official+lobby+music" target="_blank" rel="noopener">Find official lobby music ↗</a>
+</div>
+</div>
+</section>
 
-  <div class="actions">
-   <button class="primary" onclick="openChat()">✦ Talk to Kelly</button>
-   <a href="#library" class="secondary">Explore Free Fire</a>
-  </div>
- </div>
+<section class="section reveal">
+<div class="sectionhead"><h2>Current info & research</h2><small>Open a search</small></div>
+<div class="feature">
+<p>For current leaderboard standings, tournament results, patch notes, new events, or phone specifications, open a search and check the date and source.</p>
+<div class="searchlinks">
+<a href="https://www.google.com/search?q=Free+Fire+ranked+leaderboard+latest" target="_blank" rel="noopener">Leaderboard search ↗</a>
+<a href="https://www.google.com/search?q=Free+Fire+latest+patch+notes" target="_blank" rel="noopener">Patch notes ↗</a>
+<a href="https://www.google.com/search?q=Free+Fire+esports+results+latest" target="_blank" rel="noopener">Esports ↗</a>
+<a href="https://www.google.com/search?q=phone+model+Free+Fire+FPS+settings" target="_blank" rel="noopener">Phone FPS ↗</a>
+</div>
+</div>
+</section>
 
- <div class="heroVisual reveal">
-  <div class="energy"></div>
-  <div class="bigOrb"></div>
-
-  <div class="floatingCard one">
-   ✦ KELLY AI<br>
-   <small>Gaming assistant</small>
-  </div>
-
-  <div class="floatingCard two">
-   ⚡ FREE FIRE HUB<br>
-   <small>Knowledge centre</small>
-  </div>
- </div>
+<div class="footer">Kelly.AI • Fan-made Free Fire companion • Not affiliated with Garena</div>
 </div>
 
-<!-- STATS -->
-
-<section class="reveal">
- <div class="statGrid">
-  <div class="stat"><b>🎮</b><span>Game modes</span></div>
-  <div class="stat"><b>⚔️</b><span>Weapons</span></div>
-  <div class="stat"><b>🧠</b><span>Skills</span></div>
-  <div class="stat"><b>🏆</b><span>Rank guide</span></div>
- </div>
-</section>
-
-<!-- LIBRARY -->
-
-<section id="library" class="reveal">
-
- <div class="sectionHead">
-  <div>
-   <h2>FREE FIRE <span class="gradient">LIBRARY</span></h2>
-   <p>Search gaming topics or select a category.</p>
-  </div>
- </div>
-
- <div class="searchBox">
-  <input id="search" placeholder="🔎 Search characters, weapons, maps..." oninput="renderLibrary()">
- </div>
-
- <div class="filters" id="filters"></div>
-
- <div class="grid" id="libraryGrid"></div>
-</section>
-
-<!-- QUICK EXPLORE -->
-
-<section class="reveal">
-
- <div class="sectionHead">
-  <div>
-   <h2>QUICK <span class="gradient">EXPLORE</span></h2>
-   <p>Tap a topic to open its information.</p>
-  </div>
- </div>
-
- <div class="grid">
-  <div class="card">
-   <div class="cardIcon">🎯</div>
-   <h3>Headshot Guide</h3>
-   <p>Learn aim practice, sensitivity basics and control setup.</p>
-   <button onclick="showTopic('headshots')">Open guide →</button>
-  </div>
-
-  <div class="card">
-   <div class="cardIcon">🕹️</div>
-   <h3>HUD Controls</h3>
-   <p>Learn the purpose of your control layout and buttons.</p>
-   <button onclick="showTopic('hud')">Open guide →</button>
-  </div>
-
-  <div class="card">
-   <div class="cardIcon">🏅</div>
-   <h3>Rank Progress</h3>
-   <p>Understand ranked progression and match strategy.</p>
-   <button onclick="showTopic('rank')">Open guide →</button>
-  </div>
-
-  <div class="card">
-   <div class="cardIcon">🗺️</div>
-   <h3>Map Awareness</h3>
-   <p>Learn landmarks, positioning and zone awareness.</p>
-   <button onclick="showTopic('map')">Open guide →</button>
-  </div>
-
-  <div class="card">
-   <div class="cardIcon">🔫</div>
-   <h3>Weapon Classes</h3>
-   <p>Understand different weapon types and their roles.</p>
-   <button onclick="showTopic('weapons')">Open guide →</button>
-  </div>
-
-  <div class="card">
-   <div class="cardIcon">📰</div>
-   <h3>Official Updates</h3>
-   <p>Go to official Free Fire news and announcements.</p>
-   <button onclick="window.open('https://ff.garena.com/','_blank')">Visit official site ↗</button>
-  </div>
- </div>
-</section>
-
-<!-- TIPS -->
-
-<section id="tips" class="reveal">
-
- <div class="sectionHead">
-  <div>
-   <h2>GAMING <span class="gradient">KNOWLEDGE</span></h2>
-   <p>Helpful information for improving your game.</p>
-  </div>
- </div>
-
- <div class="twoCols">
-  <div class="tipBox">
-   <h3>🎯 Aim & Accuracy</h3>
-   <p>
-    Keep your controls comfortable. Practise in the training
-    area, pay attention to how your aim responds, and make
-    small adjustments instead of changing every setting at once.
-   </p>
-  </div>
-
-  <div class="tipBox">
-   <h3>🛡️ Survival & Awareness</h3>
-   <p>
-    Watch the safe zone, use cover, pay attention to
-    surroundings, and avoid rushing into fights without
-    understanding your position.
-   </p>
-  </div>
-
-  <div class="tipBox">
-   <h3>🤝 Teamwork</h3>
-   <p>
-    Communicate with teammates, share information,
-    stay close enough to support each other and
-    plan rotations together.
-   </p>
-  </div>
-
-  <div class="tipBox">
-   <h3>⚙️ Settings</h3>
-   <p>
-    Comfortable sensitivity and button placement depend
-    on your device, screen condition and play style.
-    Use settings that feel controllable.
-   </p>
-  </div>
- </div>
-</section>
-
-<!-- ASSISTANT -->
-
-<section id="assistant" class="reveal">
-
- <div class="sectionHead">
-  <div>
-   <h2>MEET <span class="gradient">KELLY</span></h2>
-   <p>Your built-in Free Fire information assistant.</p>
-  </div>
- </div>
-
- <div class="panel">
-  <h3>Ask Kelly anything</h3>
-  <p>Try questions about weapons, characters, ranks, maps, skills or game modes.</p>
-
-  <div class="searchBox">
-   <input id="mainQuestion" placeholder="Type your question here..." onkeydown="if(event.key==='Enter')mainAsk()">
-   <button class="primary" onclick="mainAsk()">Ask ✦</button>
-  </div>
-
-  <div class="filters">
-   <button class="filter" onclick="askPreset('Explain Free Fire characters')">Characters</button>
-   <button class="filter" onclick="askPreset('Tell me about weapons')">Weapons</button>
-   <button class="filter" onclick="askPreset('Explain ranked mode')">Ranks</button>
-   <button class="filter" onclick="askPreset('Give me map tips')">Maps</button>
-   <button class="filter" onclick="askPreset('Explain Clash Squad')">Clash Squad</button>
-  </div>
-
-  <div id="mainAnswer" style="display:none" class="tipBox"></div>
-
-  <p style="color:var(--muted);font-size:.8rem">
-   Kelly currently uses a built-in knowledge library.
-   Live web search and a real AI connection are not yet enabled.
-  </p>
- </div>
-</section>
-
-<footer>
- Kelly.AI • Free Fire Fan Project • <span id="year"></span>
- <br><br>
- <a href="https://ff.garena.com/" target="_blank">Official Free Fire website</a>
-</footer>
-
-<!-- CHAT WINDOW -->
-
-<div class="chatWindow" id="chatWindow">
-
- <div class="chatHeader">
-  <strong>✦ KELLY AI</strong>
-  <button onclick="closeChat()">✕</button>
- </div>
-
- <div class="chatLog" id="chatLog">
-  <div class="message bot">
-   Hello! I'm Kelly. Ask me about Free Fire and I'll search my built-in knowledge.
-  </div>
- </div>
-
- <div class="chatInput">
-  <input id="chatInput" placeholder="Ask Kelly..." onkeydown="if(event.key==='Enter')sendChat()">
-  <button onclick="sendChat()">➤</button>
- </div>
-</div>
-
-<!-- FLOATING ORB -->
-
-<button class="orbButton" id="orb" aria-label="Kelly AI">✦</button>
-
-<button class="soundButton" id="soundBtn" onclick="toggleSound()">🔊 Sound On</button>
+<div class="orb" id="orb" aria-label="Kelly orb">✦</div>
+<div class="toast" id="toast">Orb colour changed ✨</div>
 
 <script>
-
-/* ===================================
-   KELLY CONTENT LIBRARY
-=================================== */
-
-const data=[
-
-{
-category:"Characters",
-icon:"👤",
-title:"Character Abilities",
-keywords:"character abilities skill passive active combination",
-text:"Character abilities have different roles. Some focus on movement, recovery, information, defence or support. When choosing characters, consider your mode, teammates and preferred play style. Ability details can change through updates."
-},
-
-{
-category:"Characters",
-icon:"⚡",
-title:"Active Skills",
-keywords:"active skill ability activation",
-text:"Active abilities usually require activation and may have a cooldown. Read the skill description in-game to understand its duration, conditions and cooldown before building a combination."
-},
-
-{
-category:"Characters",
-icon:"✨",
-title:"Passive Skills",
-keywords:"passive skill always active",
-text:"Passive abilities generally provide an effect without a separate activation button. Check their descriptions and see how they complement your play style."
-},
-
-{
-category:"Weapons",
-icon:"🔫",
-title:"Assault Rifles",
-keywords:"ar rifle automatic mid range",
-text:"Assault rifles are versatile weapons often used at medium range. Different rifles vary in recoil, firing speed, damage and accuracy. Learn the behaviour of the weapon you prefer."
-},
-
-{
-category:"Weapons",
-icon:"🎯",
-title:"Sniper Rifles",
-keywords:"sniper long range scope",
-text:"Sniper rifles are designed for longer-distance engagements. Use cover, consider your surroundings and avoid staying in one exposed position."
-},
-
-{
-category:"Weapons",
-icon:"💥",
-title:"Shotguns",
-keywords:"shotgun close range m1887 m590",
-text:"Shotguns are designed for close-range encounters. Positioning, timing, movement and understanding the weapon's firing pattern are important."
-},
-
-{
-category:"Weapons",
-icon:"🔹",
-title:"SMGs",
-keywords:"smg submachine gun close medium",
-text:"Submachine guns are generally associated with faster firing and close-to-medium range. Learn their recoil and effective distance."
-},
-
-{
-category:"Weapons",
-icon:"🔧",
-title:"Weapon Attachments",
-keywords:"attachments muzzle stock magazine grip scope",
-text:"Attachments may change weapon handling. Read their in-game descriptions and test how they affect the weapon you use."
-},
-
-{
-category:"Maps",
-icon:"🗺️",
-title:"Battle Royale Maps",
-keywords:"map br battle royale bermuda alpine kalahari purgatory",
-text:"Battle Royale maps contain different landmarks, terrain, buildings and rotation routes. Learn the names of important locations and pay attention to the zone."
-},
-
-{
-category:"Maps",
-icon:"🏙️",
-title:"Map Awareness",
-keywords:"awareness positioning zone rotation cover",
-text:"Watch the minimap, identify cover, keep track of the safe zone, and plan your route. Avoid running into unfamiliar areas without checking your surroundings."
-},
-
-{
-category:"Modes",
-icon:"🏆",
-title:"Battle Royale",
-keywords:"br battle royale survival mode",
-text:"Battle Royale is a survival mode where players or squads compete while the playable area changes. Loot, positioning and survival decisions matter."
-},
-
-{
-category:"Modes",
-icon:"⚔️",
-title:"Clash Squad",
-keywords:"cs clash squad round team mode",
-text:"Clash Squad is a round-based team mode. Team coordination, buying decisions, communication and adapting to each round are important."
-},
-
-{
-category:"Modes",
-icon:"🥊",
-title:"Lone Wolf",
-keywords:"lone wolf 1v1 duel",
-text:"Lone Wolf focuses on individual matchups. Practice awareness, aim control, timing and learning from your opponent."
-},
-
-{
-category:"Ranks",
-icon:"🥉",
-title:"Ranked Progress",
-keywords:"rank ranked points stars heroic master grandmaster",
-text:"Ranked progression depends on your performance and the current season rules. Check the in-game ranked page for the current tiers, requirements and rewards."
-},
-
-{
-category:"Ranks",
-icon:"🏅",
-title:"Heroic Rank",
-keywords:"heroic elite heroic stars",
-text:"Heroic is a ranked tier. Your progress and stars or points depend on the current ranked system. Check the game for current season details."
-},
-
-{
-category:"Ranks",
-icon:"👑",
-title:"Grandmaster",
-keywords:"grandmaster gm leaderboard ranking",
-text:"Grandmaster is a high competitive rank. Its eligibility and ranking rules can vary by season and region. The in-game ranked screen is the reliable source for current requirements."
-},
-
-{
-category:"Pets",
-icon:"🐾",
-title:"Pets",
-keywords:"pet companion abilities",
-text:"Pets can provide gameplay effects depending on their ability. Review the pet skill description and select one that complements your preferred mode."
-},
-
-{
-category:"Gameplay",
-icon:"🎯",
-title:"Aim Practice",
-keywords:"aim accuracy headshot training",
-text:"Use the training area to practise aiming and become familiar with your controls. Focus on consistency and comfortable movements instead of changing all settings at once."
-},
-
-{
-category:"Gameplay",
-icon:"🕹️",
-title:"HUD Layout",
-keywords:"hud controls buttons layout two finger three finger",
-text:"HUD means Heads-Up Display. Button positions, sizes and spacing affect comfort and control. Choose a layout you can reach comfortably and practise with it before changing it again."
-},
-
-{
-category:"Gameplay",
-icon:"📱",
-title:"Sensitivity",
-keywords:"sensitivity sensi camera aiming settings dpi",
-text:"Sensitivity depends on device, screen responsiveness and personal control. Change one setting at a time and test it. If your touchscreen misses inputs, sensitivity settings cannot fully fix the hardware problem."
-},
-
-{
-category:"Gameplay",
-icon:"🏃",
-title:"Movement",
-keywords:"movement running jumping crouching",
-text:"Movement is about awareness, positioning and timing. Avoid unnecessary movement that makes your controls difficult to manage. Practise in a comfortable way."
-},
-
-{
-category:"Gameplay",
-icon:"🤝",
-title:"Teamwork",
-keywords:"team teammate squad communication revive",
-text:"Communicate, share useful information, stay aware of teammates and coordinate your movements. Teamwork can make decisions easier during a match."
-},
-
-{
-category:"Esports",
-icon:"🎮",
-title:"Free Fire Esports",
-keywords:"esports tournament competition professional",
-text:"Free Fire esports features organized competitive tournaments. Event schedules, teams and results change. Check official Free Fire esports announcements for verified information."
-},
-
-{
-category:"Updates",
-icon:"📰",
-title:"Official Updates",
-keywords:"update news patch notes new version",
-text:"This website does not currently retrieve live news. For current patch notes, events, releases and announcements, visit the official Free Fire website."
-},
-
-{
-category:"Gameplay",
-icon:"🛡️",
-title:"Survival",
-keywords:"survival cover health safe zone",
-text:"Pay attention to the zone, use cover, keep track of your surroundings and consider whether a fight is worth taking."
-},
-
-{
-category:"Gameplay",
-icon:"🧠",
-title:"Learning From Matches",
-keywords:"improve review learn mistakes gameplay",
-text:"After a match, think about what went well and what was confusing. Practise one area at a time and take breaks when you need them."
-}
-
-];
-
-/* ===================================
-   LIBRARY DISPLAY
-=================================== */
-
-const categories=["All",...new Set(data.map(x=>x.category))];
-
-let activeCategory="All";
-
-function renderFilters(){
-
-let f=document.getElementById("filters");
-
-f.innerHTML="";
-
-categories.forEach(cat=>{
-
-let b=document.createElement("button");
-
-b.className="filter"+(activeCategory===cat?" active":"");
-
-b.textContent=cat;
-
-b.onclick=()=>{
-
-activeCategory=cat;
-
-renderFilters();
-
-renderLibrary();
-
-};
-
-f.appendChild(b);
-
-});
-
-}
-
-function renderLibrary(){
-
-let q=document.getElementById("search").value.toLowerCase();
-
-let grid=document.getElementById("libraryGrid");
-
-grid.innerHTML="";
-
-let filtered=data.filter(item=>{
-
-let matchesCategory=
-activeCategory==="All"||item.category===activeCategory;
-
-let words=(item.title+" "+item.category+" "+item.keywords+" "+item.text).toLowerCase();
-
-return matchesCategory&&words.includes(q);
-
-});
-
-if(filtered.length===0){
-
-grid.innerHTML='<div class="noResults">No matching topic found. Try another search.</div>';
-
-return;
-
-}
-
-filtered.forEach(item=>{
-
-let card=document.createElement("article");
-
-card.className="card libraryCard";
-
-card.innerHTML=`
-<div class="cardIcon">${item.icon}</div>
-<span class="tag">${item.category}</span>
-<h3>${item.title}</h3>
-<p>${item.text}</p>
-<button>Ask Kelly about this →</button>
-`;
-
-card.querySelector("button").onclick=()=>{
-
-openChat();
-
-addMessage("Tell me about "+item.title,"me");
-
-addMessage(item.text,"bot");
-
-};
-
-grid.appendChild(card);
-
-});
-
-}
-
-renderFilters();
-renderLibrary();
-
-/* ===================================
-   ANSWERS
-=================================== */
-
-function getAnswer(question){
-
-let q=question.toLowerCase();
-
-if(/^(hi|hello|hey|yo|good morning)/.test(q)){
-
-return "Hello! I'm Kelly AI. Ask me about Free Fire characters, weapons, skills, maps, ranks, modes, pets or gameplay.";
-
-}
-
-if(q.includes("who are you")||q.includes("your name")){
-
-return "I'm Kelly AI, your Free Fire-themed gaming assistant. This version uses a built-in information library.";
-
-}
-
-if(q.includes("free fire")){
-
-return "Free Fire is a mobile battle royale game. I can help explain its modes, characters, weapons, maps, ranked play and general gameplay. What topic do you want to learn about?";
-
-}
-
-let found=data.filter(item=>{
-
-let words=item.title.toLowerCase().split(" ");
-
-return q.includes(item.title.toLowerCase())||
-item.keywords.split(" ").some(word=>word.length>3&&q.includes(word));
-
-});
-
-if(found.length){
-
-return found.slice(0,3).map(x=>
-x.icon+" "+x.title+"\n"+x.text
-).join("\n\n");
-
-}
-
-return "I don't have a specific answer in my built-in library for that question yet.\n\nTry asking about characters, weapons, maps, ranks, pets, Clash Squad, Battle Royale, sensitivity, HUD, aim practice or movement.\n\nLive internet search and real AI responses are not connected yet.";
-}
-
-/* Main page question */
-
-function mainAsk(){
-
-let input=document.getElementById("mainQuestion");
-
-let q=input.value.trim();
-
-if(!q)return;
-
-let box=document.getElementById("mainAnswer");
-
-box.style.display="block";
-
-box.innerHTML="";
-
-let title=document.createElement("h3");
-
-title.textContent="✦ Kelly's Answer";
-
-let text=document.createElement("p");
-
-text.textContent=getAnswer(q);
-
-box.append(title,text);
-
-box.scrollIntoView({behavior:"smooth",block:"center"});
-
-playSound(650);
-
-}
-
-function askPreset(q){
-
-document.getElementById("mainQuestion").value=q;
-
-mainAsk();
-
-}
-
-/* Quick topics */
-
-function showTopic(topic){
-
-let q={
-
-headshots:"Explain aim practice and headshots",
-
-hud:"Explain HUD controls",
-
-rank:"Explain ranked progression",
-
-map:"Give me map awareness tips",
-
-weapons:"Explain weapon classes"
-
-}[topic]||topic;
-
-askPreset(q);
-
-}
-
-/* ===================================
-   CHAT
-=================================== */
-
-function openChat(){
-
-document.getElementById("chatWindow").classList.add("open");
-
-document.getElementById("chatInput").focus();
-
-}
-
-function closeChat(){
-
-document.getElementById("chatWindow").classList.remove("open");
-
-}
-
-function toggleChat(){
-
-let chat=document.getElementById("chatWindow");
-
-chat.classList.toggle("open");
-
-}
-
-function addMessage(text,type){
-
-let m=document.createElement("div");
-
-m.className="message "+type;
-
-m.textContent=text;
-
-let log=document.getElementById("chatLog");
-
-log.appendChild(m);
-
-log.scrollTop=log.scrollHeight;
-
-}
-
-function sendChat(){
-
-let input=document.getElementById("chatInput");
-
-let q=input.value.trim();
-
-if(!q)return;
-
-addMessage(q,"me");
-
-input.value="";
-
-setTimeout(()=>{
-
-addMessage(getAnswer(q),"bot");
-
-},200);
-
-playSound(600);
-
-}
-
-/* ===================================
-   SOUND
-=================================== */
-
+const $=id=>document.getElementById(id);
 let soundOn=true;
+let hue=270;
+let audioCtx;
 
-let audio;
-
-function playSound(freq=500){
-
+function beep(freq=600,dur=.07){
 if(!soundOn)return;
-
 try{
-
-audio=audio||new(window.AudioContext||window.webkitAudioContext)();
-
-if(audio.state==="suspended")audio.resume();
-
-let osc=audio.createOscillator();
-
-let gain=audio.createGain();
-
-osc.connect(gain);
-
-gain.connect(audio.destination);
-
-osc.frequency.value=freq;
-
-osc.type="sine";
-
-gain.gain.setValueAtTime(.04,audio.currentTime);
-
-gain.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.12);
-
-osc.start();
-
-osc.stop(audio.currentTime+.13);
-
+audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();
+let o=audioCtx.createOscillator(),g=audioCtx.createGain();
+o.frequency.value=freq;
+o.type='sine';
+g.gain.value=.045;
+o.connect(g);
+g.connect(audioCtx.destination);
+o.start();
+g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+dur);
+o.stop(audioCtx.currentTime+dur)
 }catch(e){}
-
 }
 
-function toggleSound(){
-
+$('soundBtn').onclick=()=>{
 soundOn=!soundOn;
+$('soundBtn').textContent=soundOn?'🔊':'🔇';
+beep(720)
+};
 
-document.getElementById("soundBtn").textContent=
-
-soundOn?"🔊 Sound On":"🔇 Sound Off";
-
-if(soundOn)playSound(650);
-
+function toast(){
+let t=$('toast');
+t.style.display='block';
+setTimeout(()=>t.style.display='none',1100)
 }
 
-/* ===================================
-   ORB COLORS - TAP
-=================================== */
+$('orb').addEventListener('click',()=>{
+hue=(hue+48)%360;
+$('orb').style.background=`linear-gradient(135deg,hsl(${hue} 90% 65%),hsl(${(hue+65)%360} 85% 60%),hsl(${(hue+150)%360} 90% 60%))`;
+document.documentElement.style.setProperty('--purple',`hsl(${hue} 85% 65%)`);
+beep(780);
+toast()
+});
 
-const colors=[
+// Drag orb
+let orb=$('orb'),drag=false,moved=false,startX,startY,origX,origY;
 
-["#55eaff","#6957ff","#55eaff"],
+orb.addEventListener('pointerdown',e=>{
+drag=true;
+moved=false;
+startX=e.clientX;
+startY=e.clientY;
+let r=orb.getBoundingClientRect();
+origX=r.left;
+origY=r.top;
+orb.setPointerCapture(e.pointerId)
+});
 
-["#d8aaff","#922dff","#c68aff"],
+orb.addEventListener('pointermove',e=>{
+if(!drag)return;
+let dx=e.clientX-startX,dy=e.clientY-startY;
+if(Math.abs(dx)+Math.abs(dy)>7)moved=true;
+if(moved){
+orb.style.left=Math.max(0,Math.min(innerWidth-64,origX+dx))+'px';
+orb.style.top=Math.max(0,Math.min(innerHeight-64,origY+dy))+'px';
+orb.style.right='auto';
+orb.style.bottom='auto'
+}
+});
 
-["#ffb4b4","#ff294f","#ff4969"],
+orb.addEventListener('pointerup',()=>{drag=false});
 
-["#aaffd0","#00b875","#42ffad"],
+orb.addEventListener('click',e=>{
+if(moved){
+e.stopImmediatePropagation();
+moved=false
+}
+},true);
 
-["#fff0a8","#ffb000","#ffd166"],
-
-["#ffc4ef","#ff35ba","#ff65d8"],
-
-["#a8c7ff","#2866ff","#73a0ff"]
-
+const knowledge=[
+[/\b(m1887|shotgun)\b/i,'Shotguns are most effective at close range. In Clash Squad, practise crosshair placement, timing, cover and controlled movement. The M1887 rewards accurate shots; avoid taking long-range fights with it.'],
+[/\b(m590)\b/i,'The M590 is a shotgun, so focus on close-range positioning and accurate timing. Check the current in-game weapon stats because balance can change with updates.'],
+[/\b(desert eagle|deagle)\b/i,'The Desert Eagle is a pistol commonly used for precise single shots. Practise aiming calmly, keeping the crosshair near upper-body level, and firing when your aim is settled.'],
+[/\b(clash squad|cs)\b/i,'In Clash Squad, play around cover, coordinate with teammates, buy for your role and the round, avoid exposing yourself to multiple opponents, and practise a consistent close-range weapon.'],
+[/\b(lone wolf)\b/i,'Lone Wolf is a duel-focused mode. Use it to practise calm aim, cover, timing and learning your opponent’s habits rather than rushing every encounter.'],
+[/\b(rank|heroic|grandmaster)\b/i,'Rank progression depends on the current season rules and performance. Prioritize survival, team coordination, smart engagements and completing objectives. For exact current rank thresholds, check the in-game ranked screen.'],
+[/\b(character|skill|combination|combo)\b/i,'Character combinations depend on your role and mode. Think in terms of mobility, sustain, information and team support; choose abilities that complement how you play. Skill balance can change, so confirm details in the current character menu.'],
+[/\b(pet|pets)\b/i,'Choose pets by the ability that supports your play style and mode. Compare the ability description in-game—pet balance and availability may change between updates.'],
+[/\b(sensitivity|sensi|headshot)\b/i,'Sensitivity is personal and depends on your phone, screen condition, touch response, FPS and control layout. Start with a moderate setting, adjust one slider at a time in Training Ground, and keep notes. No sensitivity guarantees headshots. Tell me your phone model, finger count and what your aim is doing for more tailored advice.'],
+[/\b(hud|button layout|controls)\b/i,'HUD layout depends on your fingers and screen. Keep frequently used buttons comfortably reachable, avoid overlapping controls, and test changes in Training Ground before matches. Tell me your finger count and phone model for a layout discussion.'],
+[/\b(fps|lag|performance|graphics|phone)\b/i,'For smoother play, use a graphics preset your device can sustain, close unnecessary background apps, keep some storage free, avoid playing while the phone is overheating, and test frame-rate options available in-game. Tell me your exact phone model for more specific guidance.'],
+[/\b(map|bermuda|purgatory|kalahari|alpine|solara)\b/i,'Map knowledge helps: learn safe routes, cover, rotations, loot areas and escape paths. Avoid staying exposed while crossing open ground. Map names and availability can change by mode or update.'],
+[/\b(update|event|leaderboard|tournament|esports|latest|today)\b/i,'I can explain general Free Fire information, but I cannot verify live updates or leaderboard data from this standalone page. Use the Current info & research links below and check official sources and timestamps.'],
+[/\b(what is free fire|free fire)\b/i,'Free Fire is a mobile battle-royale game with modes including Battle Royale and Clash Squad, characters with abilities, weapons, pets, and seasonal progression. Ask me about any of those topics.']
 ];
 
-let colorIndex=0;
-
-const orb=document.getElementById("orb");
-
-function changeColor(){
-
-colorIndex=(colorIndex+1)%colors.length;
-
-let c=colors[colorIndex];
-
-orb.style.setProperty("--orb1",c[0]);
-
-orb.style.setProperty("--orb2",c[1]);
-
-orb.style.boxShadow="0 0 28px "+c[2]+", inset -8px -10px 20px #0006";
-
-orb.style.borderColor=c[0];
-
-orb.classList.remove("pulse");
-
-void orb.offsetWidth;
-
-orb.classList.add("pulse");
-
-playSound(450+colorIndex*90);
-
+function answer(q){
+for(let [re,a] of knowledge)
+if(re.test(q))return a;
+return 'I can help with Free Fire guides, weapons, character abilities, pets, game modes, rank, tactics, phone gaming settings, and general questions. For details that may have changed in a recent update, please verify with the official game or the search links. Try asking a more specific question, too.'
 }
 
-/* ===================================
-   ORB DRAG + TAP
-=================================== */
+function add(text,who){
+let d=document.createElement('div');
+d.className='msg '+who;
+d.textContent=text;
+$('messages').appendChild(d);
+$('messages').scrollTop=$('messages').scrollHeight
+}
 
-let pointerStartX=0;
-let pointerStartY=0;
-let orbStartX=0;
-let orbStartY=0;
-let isDragging=false;
-let hasMoved=false;
+function send(){
+let q=$('question').value.trim();
+if(!q)return;
+add(q,'you');
+$('question').value='';
+beep(480);
+let wait=document.createElement('div');
+wait.className='msg kelly';
+wait.textContent='Kelly is thinking…';
+$('messages').appendChild(wait);
+setTimeout(()=>{
+wait.remove();
+add(answer(q),'kelly');
+beep(650)
+},450)
+}
 
-orb.addEventListener("pointerdown",function(e){
-
-isDragging=true;
-hasMoved=false;
-
-pointerStartX=e.clientX;
-pointerStartY=e.clientY;
-
-let rect=orb.getBoundingClientRect();
-
-orbStartX=rect.left;
-orbStartY=rect.top;
-
-orb.setPointerCapture(e.pointerId);
-
-e.preventDefault();
-
+$('send').onclick=send;
+$('question').addEventListener('keydown',e=>{
+if(e.key==='Enter')send()
 });
 
-orb.addEventListener("pointermove",function(e){
-
-if(!isDragging)return;
-
-let dx=e.clientX-pointerStartX;
-let dy=e.clientY-pointerStartY;
-
-if(Math.abs(dx)>8||Math.abs(dy)>8){
-
-hasMoved=true;
-
+function quick(q){
+$('question').value=q;
+send()
 }
 
-if(hasMoved){
-
-let x=Math.max(0,Math.min(window.innerWidth-70,orbStartX+dx));
-
-let y=Math.max(0,Math.min(window.innerHeight-70,orbStartY+dy));
-
-orb.style.left=x+"px";
-orb.style.top=y+"px";
-orb.style.right="auto";
-orb.style.bottom="auto";
-
+function scrollToChat(){
+$('chat').scrollIntoView({behavior:'smooth'})
 }
 
-});
-
-function releaseOrb(){
-
-if(!isDragging)return;
-
-isDragging=false;
-
-if(!hasMoved){
-
-changeColor();
-
-toggleChat();
-
+$('voice').onclick=()=>{
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+if(!SR){
+add('Voice input is not supported in this browser. You can type your question instead.','kelly');
+return
 }
+let r=new SR();
+r.lang='en-NG';
+r.onresult=e=>{
+$('question').value=e.results[0][0].transcript;
+send()
+};
+r.onerror=()=>add('Voice input did not work this time. Try typing.','kelly');
+r.start()
+};
 
+$('audioFile').onchange=e=>{
+let f=e.target.files[0];
+if(f){
+$('player').src=URL.createObjectURL(f);
+$('player').load()
 }
+};
 
-orb.addEventListener("pointerup",releaseOrb);
-
-orb.addEventListener("pointercancel",releaseOrb);
-
-/* ===================================
-   MENU + SCROLL ANIMATION
-=================================== */
-
-function toggleMenu(){
-
-document.getElementById("nav").classList.toggle("open");
-
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{
+if(e.isIntersecting){
+e.target.classList.add('show');
+observer.unobserve(e.target)
 }
+}),{threshold:.12});
 
-document.querySelectorAll("nav a").forEach(a=>{
-
-a.addEventListener("click",()=>{
-
-document.getElementById("nav").classList.remove("open");
-
-});
-
-});
-
-let observer=new IntersectionObserver(entries=>{
-
-entries.forEach(entry=>{
-
-if(entry.isIntersecting){
-
-entry.target.classList.add("show");
-
-observer.unobserve(entry.target);
-
-}
-
-});
-
-},{threshold:.1});
-
-document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
-
-document.getElementById("year").textContent=new Date().getFullYear();
-
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 </script>
-
 </body>
-    </html>
+ </html>
