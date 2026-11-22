@@ -1,81 +1,1516 @@
-
-html = r'''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080b13"><title>Kelly AI | Free Fire Command Hub</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080b15">
+<title>Kelly AI | Free Fire Hub</title>
+
 <style>
-:root{--bg:#080b13;--panel:#111827dd;--line:#28344a;--cyan:#45e8ff;--violet:#9c70ff;--orange:#ff8a32;--text:#edf5ff;--muted:#a9b6ca}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Arial;overflow-x:hidden}
-body:before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse at 10% 10%,#132a4c 0,transparent 42%),radial-gradient(ellipse at 90% 75%,#271342 0,transparent 45%),#080b13}
-body:after{content:"";position:fixed;inset:0;z-index:-1;opacity:.18;pointer-events:none;background-image:linear-gradient(#42546b22 1px,transparent 1px),linear-gradient(90deg,#42546b22 1px,transparent 1px);background-size:42px 42px}
-header{position:sticky;top:0;z-index:20;background:#080b13dd;backdrop-filter:blur(18px);border-bottom:1px solid #26364d;display:flex;justify-content:space-between;align-items:center;padding:13px 5%;gap:12px}
-.logo{font-weight:1000;letter-spacing:1px;font-size:1.2rem}.logo span{color:var(--cyan);text-shadow:0 0 14px #45e8ff66}
-nav{display:flex;gap:20px}nav a{color:#c8d6e8;text-decoration:none;font-size:.9rem}nav a:hover{color:var(--cyan)}.menu{display:none;background:#111827;border:1px solid var(--line);color:white;border-radius:9px;padding:8px}
-.hero{max-width:1250px;margin:auto;min-height:76vh;padding:7vh 5%;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:35px;position:relative}
-.eyebrow{display:inline-flex;border:1px solid #45e8ff55;border-radius:40px;padding:8px 12px;color:var(--cyan);font-size:.75rem;letter-spacing:1.5px;background:#0d1826aa}
-h1{font-size:clamp(3rem,8vw,6.3rem);line-height:.91;letter-spacing:-4px;margin:22px 0;font-weight:1000}h1 em{font-style:normal;background:linear-gradient(90deg,var(--cyan),#a5a9ff,var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{color:var(--muted);line-height:1.7;max-width:570px}.btn{border:1px solid #45e8ff66;background:linear-gradient(135deg,#12748a,#3944a6);color:white;padding:12px 17px;border-radius:12px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-block;box-shadow:0 8px 30px #45e8ff16;transition:.2s}.btn:hover{transform:translateY(-2px);box-shadow:0 0 24px #45e8ff44}.btn.secondary{background:#111827;border-color:#39475e}
-.hero-art{position:relative;min-height:390px;perspective:1000px;display:grid;place-items:center}
-.orb{width:min(370px,80vw);aspect-ratio:1;border-radius:50%;position:relative;background:radial-gradient(circle at 35% 28%,#c5faff,#43c8ff 10%,#2543b7 34%,#100d38 65%,#080b13 74%);box-shadow:inset -30px -35px 70px #03050e,0 0 60px #40cfff44;transform-style:preserve-3d;animation:float 5s ease-in-out infinite}
-.orb:before,.orb:after{content:"";position:absolute;inset:-9%;border:1px solid #45e8ff77;border-radius:50%;transform:rotateX(70deg) rotateZ(-20deg);box-shadow:0 0 22px #45e8ff22}.orb:after{inset:-18%;transform:rotateX(65deg) rotateZ(45deg);border-color:#a06cff77}
-.orb b{position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(4rem,11vw,7rem);color:#fff;text-shadow:0 0 28px #45e8ff;letter-spacing:-8px}
-.floatcard{position:absolute;background:#101827d9;border:1px solid #45e8ff55;border-radius:14px;padding:12px 15px;box-shadow:0 18px 45px #0006;backdrop-filter:blur(10px);animation:float 4s ease-in-out infinite}.floatcard.one{left:0;top:15%}.floatcard.two{right:0;bottom:12%;animation-delay:1s}
-@keyframes float{50%{transform:translateY(-13px) rotateY(5deg)}}@keyframes pulse{50%{box-shadow:0 0 32px #45e8ff55}}
-main section{max-width:1200px;margin:auto;padding:55px 5%}.heading{text-align:center;margin-bottom:25px}.heading h2{font-size:clamp(1.6rem,4vw,2.5rem);margin:0}.heading p{color:var(--muted)}
-.panel{background:linear-gradient(145deg,#131c2bdd,#0c1220dd);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 20px 50px #0003}
-.searchrow{display:flex;gap:10px}.searchrow input,.chat input{min-width:0;flex:1;padding:14px;background:#080d17;color:white;border:1px solid #34445d;border-radius:12px;font-size:1rem;outline:none}.searchrow input:focus,.chat input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #45e8ff16}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.chip{background:#101a2b;color:#d7e5f5;border:1px solid #35445c;border-radius:40px;padding:8px 12px;cursor:pointer}.chip:hover{border-color:var(--cyan);color:var(--cyan)}
-.result{display:none;margin-top:16px;border:1px solid #45e8ff55;background:#0b1624;border-radius:13px;padding:16px;line-height:1.65}.result.show{display:block}.result a{color:var(--cyan)}
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.imagecard{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#111827;transition:transform .25s,box-shadow .25s;transform-style:preserve-3d}.imagecard:hover{transform:translateY(-5px) rotateX(2deg);box-shadow:0 20px 40px #0006}.imagecard img{width:100%;height:210px;object-fit:cover;display:block}.imagecard .content{padding:16px}.imagecard h3{margin:0 0 6px}.imagecard p{color:var(--muted);line-height:1.55;margin:0}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.tile{background:linear-gradient(145deg,#121d2e,#101320);border:1px solid var(--line);border-radius:16px;padding:18px;transition:.2s}.tile:hover{transform:translateY(-4px);border-color:#45e8ff66}.tile .icon{font-size:1.8rem}.tile h3{margin:8px 0}.tile p{color:var(--muted);line-height:1.55}.note{color:var(--muted);font-size:.84rem;line-height:1.6}
-footer{text-align:center;padding:28px;color:var(--muted);border-top:1px solid var(--line)}
-.assistant{position:fixed;right:16px;bottom:16px;z-index:30}.chat{display:none;width:min(360px,calc(100vw - 30px));max-height:70vh;overflow:auto;background:#101827;border:1px solid #45e8ff55;border-radius:18px;padding:15px;margin-bottom:10px;box-shadow:0 20px 70px #0009}.chat.open{display:block}.chat-head{display:flex;justify-content:space-between;align-items:center}.chat-head b{color:var(--cyan)}.chatlog{max-height:280px;overflow:auto;margin:12px 0}.msg{padding:10px 12px;border-radius:12px;margin:8px 0;line-height:1.5;font-size:.9rem}.msg.kelly{background:#17243a;border:1px solid #344d6b}.msg.user{background:#173743;border:1px solid #2c6474;margin-left:18px}.chat .searchrow{margin-top:10px}.bubble{height:58px;width:58px;border-radius:50%;border:1px solid #8bf4ff;background:radial-gradient(circle at 35% 30%,#9affff,#258bce,#252b7b);color:white;font-size:1.5rem;box-shadow:0 0 28px #45e8ff55;cursor:pointer;animation:pulse 2.5s infinite}
-@media(max-width:800px){nav{display:none;position:absolute;top:60px;left:0;right:0;background:#0d1421;padding:18px;flex-direction:column}nav.open{display:flex}.menu{display:block}.hero{grid-template-columns:1fr;padding-top:45px}.hero-art{min-height:310px}.gallery,.cards{grid-template-columns:1fr}.imagecard img{height:230px}.searchrow{flex-direction:column}h1{letter-spacing:-2px}}
-</style></head>
+:root{
+ --bg:#080b15;
+ --panel:#11182a;
+ --panel2:#171f34;
+ --cyan:#55eaff;
+ --purple:#a78bfa;
+ --pink:#ff65d8;
+ --green:#55ffb0;
+ --gold:#ffd166;
+ --text:#f3f6ff;
+ --muted:#9ba9c4;
+ --border:#293653;
+ --orb1:#55eaff;
+ --orb2:#6957ff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+ margin:0;
+ background:var(--bg);
+ color:var(--text);
+ font-family:system-ui,-apple-system,Segoe UI,sans-serif;
+ overflow-x:hidden;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+body:before{
+ content:"";
+ position:fixed;
+ inset:0;
+ pointer-events:none;
+ z-index:-1;
+ background:
+ radial-gradient(circle at 10% 10%,#4338ca22,transparent 35%),
+ radial-gradient(circle at 90% 30%,#06b6d422,transparent 35%),
+ radial-gradient(circle at 50% 100%,#8b5cf622,transparent 45%);
+}
+body:after{
+ content:"";
+ position:fixed;
+ inset:0;
+ z-index:-1;
+ opacity:.09;
+ background-image:
+ linear-gradient(#8da4d322 1px,transparent 1px),
+ linear-gradient(90deg,#8da4d322 1px,transparent 1px);
+ background-size:35px 35px;
+}
+a{color:var(--cyan);text-decoration:none}
+button{transition:.2s}
+button:hover{transform:translateY(-2px)}
+button:active{transform:scale(.96)}
+
+header{
+ position:sticky;
+ top:0;
+ z-index:50;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:12px 5%;
+ background:#080b15e8;
+ backdrop-filter:blur(20px);
+ border-bottom:1px solid var(--border);
+}
+.logo{
+ font-size:1.35rem;
+ font-weight:950;
+ letter-spacing:1px;
+}
+.logo span{color:var(--cyan)}
+.logo small{
+ display:block;
+ font-size:.65rem;
+ color:var(--muted);
+ letter-spacing:3px
+}
+nav{
+ display:flex;
+ gap:20px;
+ align-items:center
+}
+nav a{
+ color:var(--muted);
+ font-size:.9rem
+}
+nav a:hover{color:var(--cyan)}
+.menu{
+ display:none;
+ background:var(--panel);
+ color:white;
+ border:1px solid var(--border);
+ padding:9px;
+ border-radius:10px
+}
+
+.hero{
+ max-width:1200px;
+ margin:auto;
+ padding:60px 5% 35px;
+ display:grid;
+ grid-template-columns:1.1fr .9fr;
+ align-items:center;
+ gap:30px;
+ min-height:570px
+}
+.badge{
+ display:inline-flex;
+ gap:8px;
+ align-items:center;
+ padding:8px 13px;
+ border:1px solid #55eaff44;
+ background:#55eaff0c;
+ border-radius:30px;
+ color:var(--cyan);
+ font-size:.78rem;
+ letter-spacing:1px
+}
+h1{
+ font-size:clamp(3rem,8vw,6rem);
+ line-height:.94;
+ letter-spacing:-3px;
+ margin:24px 0
+}
+.gradient{
+ background:linear-gradient(90deg,#55eaff,#9c84ff,#ff65d8);
+ -webkit-background-clip:text;
+ background-clip:text;
+ color:transparent
+}
+.hero p{
+ max-width:520px;
+ color:var(--muted);
+ line-height:1.8
+}
+.actions{
+ display:flex;
+ gap:10px;
+ flex-wrap:wrap;
+ margin-top:22px
+}
+.primary{
+ background:linear-gradient(110deg,#167cbd,#7356ed);
+ color:white;
+ border:0;
+ padding:13px 18px;
+ border-radius:13px;
+ font-weight:800;
+ box-shadow:0 5px 25px #5865f244
+}
+.secondary{
+ background:var(--panel);
+ border:1px solid var(--border);
+ color:white;
+ padding:13px 18px;
+ border-radius:13px
+}
+.heroVisual{
+ min-height:360px;
+ position:relative;
+ display:grid;
+ place-items:center
+}
+.energy{
+ position:absolute;
+ width:270px;
+ height:270px;
+ border:1px solid #55eaff35;
+ border-radius:50%;
+ animation:spin 18s linear infinite
+}
+.energy:before{
+ content:"";
+ position:absolute;
+ inset:30px;
+ border:1px dashed #a78bfa66;
+ border-radius:50%
+}
+.energy:after{
+ content:"";
+ position:absolute;
+ inset:-18px;
+ border:1px solid #ff65d833;
+ border-radius:50%;
+ transform:rotateX(70deg)
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.bigOrb{
+ width:210px;
+ height:210px;
+ border-radius:50%;
+ position:relative;
+ background:radial-gradient(circle at 30% 25%,#d7ffff,#55eaff 15%,#6555ff 43%,#211346 72%,#080b15 80%);
+ box-shadow:0 0 55px #55eaff33,inset -20px -20px 45px #0009;
+ animation:float 4s ease-in-out infinite
+}
+.bigOrb:before{
+ content:"K";
+ position:absolute;
+ inset:0;
+ display:grid;
+ place-items:center;
+ font-size:5rem;
+ font-weight:950;
+ color:#fff;
+ text-shadow:0 0 25px white
+}
+@keyframes float{
+ 50%{transform:translateY(-15px)}
+}
+.floatingCard{
+ position:absolute;
+ background:#11182add;
+ border:1px solid #384764;
+ border-radius:14px;
+ padding:12px;
+ backdrop-filter:blur(10px);
+ box-shadow:0 12px 35px #0004
+}
+.floatingCard.one{left:0;top:15%}
+.floatingCard.two{right:0;bottom:12%}
+.floatingCard small{color:var(--muted)}
+
+section{
+ max-width:1200px;
+ margin:auto;
+ padding:45px 5%
+}
+.sectionHead{
+ display:flex;
+ justify-content:space-between;
+ align-items:end;
+ gap:15px;
+ margin-bottom:22px
+}
+.sectionHead h2{
+ margin:0;
+ font-size:clamp(1.6rem,4vw,2.5rem)
+}
+.sectionHead p{color:var(--muted);margin:7px 0 0}
+.panel{
+ background:linear-gradient(145deg,#131c30,#0d1423);
+ border:1px solid var(--border);
+ border-radius:20px;
+ padding:20px;
+ box-shadow:0 12px 40px #0002
+}
+.grid{
+ display:grid;
+ grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:15px
+}
+.card{
+ position:relative;
+ overflow:hidden;
+ background:linear-gradient(145deg,#151f35,#101625);
+ border:1px solid var(--border);
+ border-radius:18px;
+ padding:19px;
+ transition:.25s
+}
+.card:hover{
+ transform:translateY(-5px);
+ border-color:#55eaff77;
+ box-shadow:0 10px 35px #55eaff0a
+}
+.card:before{
+ content:"";
+ position:absolute;
+ top:0;
+ left:0;
+ width:100%;
+ height:2px;
+ background:linear-gradient(90deg,transparent,var(--cyan),var(--purple),transparent);
+ opacity:.7
+}
+.cardIcon{
+ font-size:2rem;
+ margin-bottom:10px
+}
+.card h3{margin:8px 0}
+.card p{
+ color:var(--muted);
+ line-height:1.65;
+ font-size:.9rem
+}
+.card button{
+ background:#1c2942;
+ border:1px solid #354968;
+ color:white;
+ border-radius:10px;
+ padding:9px 12px
+}
+.card button:hover{border-color:var(--cyan)}
+.statGrid{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:12px
+}
+.stat{
+ text-align:center;
+ padding:18px;
+ background:var(--panel);
+ border:1px solid var(--border);
+ border-radius:15px
+}
+.stat b{
+ display:block;
+ font-size:1.7rem;
+ color:var(--cyan)
+}
+.stat span{font-size:.82rem;color:var(--muted)}
+
+.searchBox{
+ display:flex;
+ gap:10px;
+ margin-bottom:18px
+}
+.searchBox input,.chatInput input{
+ flex:1;
+ min-width:0;
+ background:#080e1b;
+ color:white;
+ border:1px solid #33445f;
+ padding:13px;
+ border-radius:12px;
+ outline:none
+}
+.searchBox input:focus,.chatInput input:focus{
+ border-color:var(--cyan);
+ box-shadow:0 0 0 2px #55eaff12
+}
+.filters{
+ display:flex;
+ flex-wrap:wrap;
+ gap:8px;
+ margin-bottom:18px
+}
+.filter{
+ color:#c6d2e7;
+ background:#141e31;
+ border:1px solid #2b3b56;
+ padding:8px 12px;
+ border-radius:30px;
+ font-size:.82rem
+}
+.filter.active{
+ color:#07111c;
+ background:var(--cyan);
+ border-color:var(--cyan);
+ font-weight:800
+}
+.libraryCard{min-height:205px}
+.libraryCard .tag{
+ display:inline-block;
+ color:var(--cyan);
+ font-size:.72rem;
+ margin-bottom:7px
+}
+.noResults{
+ grid-column:1/-1;
+ text-align:center;
+ color:var(--muted);
+ padding:30px
+}
+.tipBox{
+ border:1px solid #a78bfa44;
+ background:linear-gradient(120deg,#a78bfa0b,#55eaff0b);
+ border-radius:17px;
+ padding:20px;
+ line-height:1.7
+}
+.tipBox h3{margin-top:0;color:var(--purple)}
+.twoCols{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:15px
+}
+footer{
+ text-align:center;
+ color:var(--muted);
+ padding:30px;
+ border-top:1px solid var(--border)
+}
+
+/* Kelly chat */
+.chatWindow{
+ position:fixed;
+ right:14px;
+ bottom:85px;
+ z-index:100;
+ width:min(390px,calc(100vw - 28px));
+ display:none;
+ background:#0e1728;
+ border:1px solid #55eaff66;
+ border-radius:20px;
+ overflow:hidden;
+ box-shadow:0 20px 70px #0009
+}
+.chatWindow.open{display:block}
+.chatHeader{
+ padding:15px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ background:linear-gradient(100deg,#132a43,#202043);
+ border-bottom:1px solid var(--border)
+}
+.chatHeader strong{color:var(--cyan)}
+.chatHeader button{
+ background:#1a2940;
+ color:white;
+ border:1px solid var(--border);
+ padding:6px 10px;
+ border-radius:9px
+}
+.chatLog{
+ height:310px;
+ overflow-y:auto;
+ padding:12px
+}
+.message{
+ padding:11px 13px;
+ margin:8px 0;
+ border-radius:13px;
+ line-height:1.55;
+ font-size:.9rem;
+ white-space:pre-wrap;
+ overflow-wrap:anywhere
+}
+.bot{
+ background:#17243a;
+ border:1px solid #33445f
+}
+.me{
+ background:#19374a;
+ margin-left:35px
+}
+.chatInput{
+ display:flex;
+ gap:8px;
+ padding:12px;
+ border-top:1px solid var(--border)
+}
+.chatInput button{
+ background:linear-gradient(110deg,#167cbd,#7356ed);
+ color:white;
+ border:0;
+ border-radius:10px;
+ padding:10px 14px
+}
+
+/* Floating Kelly orb */
+.orbButton{
+ position:fixed;
+ right:17px;
+ bottom:15px;
+ z-index:110;
+ width:65px;
+ height:65px;
+ border-radius:50%;
+ border:2px solid #d8ffff;
+ color:white;
+ font-size:1.6rem;
+ background:radial-gradient(circle at 30% 25%,#fff,var(--orb1),var(--orb2),#150d38);
+ box-shadow:0 0 25px var(--orb1),inset -8px -10px 20px #0006;
+ touch-action:none;
+ user-select:none;
+ -webkit-user-select:none;
+ cursor:grab;
+ transition:box-shadow .35s,border-color .35s,background .35s
+}
+.orbButton:active{cursor:grabbing}
+.orbButton.pulse{
+ animation:pulse .4s ease
+}
+@keyframes pulse{
+ 50%{transform:scale(1.18)}
+}
+.soundButton{
+ position:fixed;
+ left:12px;
+ bottom:14px;
+ z-index:90;
+ border:1px solid var(--border);
+ background:#121a2a;
+ color:white;
+ padding:9px 12px;
+ border-radius:25px
+}
+.reveal{
+ opacity:0;
+ transform:translateY(25px);
+ transition:.7s
+}
+.reveal.show{
+ opacity:1;
+ transform:none
+}
+@media(max-width:800px){
+ nav{display:none}
+ nav.open{
+ display:flex;
+ position:absolute;
+ top:60px;
+ left:0;
+ right:0;
+ background:#0c1323;
+ padding:18px;
+ flex-direction:column;
+ border-bottom:1px solid var(--border)
+ }
+ .menu{display:block}
+ .hero{
+ grid-template-columns:1fr;
+ padding-top:45px;
+ min-height:unset
+ }
+ .heroVisual{min-height:310px}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .statGrid{grid-template-columns:repeat(2,1fr)}
+ .twoCols{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+ .grid{grid-template-columns:1fr}
+ .heroVisual{min-height:280px}
+ .bigOrb{width:175px;height:175px}
+ .energy{width:230px;height:230px}
+ .sectionHead{align-items:start;flex-direction:column}
+ h1{letter-spacing:-2px}
+}
+</style>
+</head>
+
 <body>
-<header><div class="logo">KELLY<span>.AI</span> <small style="color:#8798af;font-size:.65em">FF COMMAND HUB</small></div><button class="menu" onclick="document.querySelector('nav').classList.toggle('open')">☰</button><nav><a href="#search">AI Search</a><a href="#gallery">Gallery</a><a href="#knowledge">FF Knowledge</a><a href="#about">About</a></nav></header>
-<main>
-<section class="hero"><div><span class="eyebrow">✦ GAMING INTELLIGENCE / ONLINE SEARCH</span><h1>YOUR FF<br><em>COMMAND HUB.</em></h1><p>Ask Kelly about Free Fire, game updates, characters, skills, maps, guns, esports and guides. A fresh neon interface with a little 3D depth.</p><a class="btn" href="#search">⚡ Ask Kelly</a> <a class="btn secondary" href="#gallery">Explore visuals</a></div>
-<div class="hero-art"><div class="orb"><b>K</b></div><div class="floatcard one">✦ KELLY AI<br><small>Ready to assist</small></div><div class="floatcard two">⚡ FF KNOWLEDGE<br><small>Search-enabled helper</small></div></div></section>
-<section id="search"><div class="heading"><h2>ASK KELLY</h2><p>Chat for built-in tips, or launch a focused web search for current info.</p></div><div class="panel"><div class="searchrow"><input id="mainq" placeholder="e.g. What are good CS skill combinations?"><button class="btn" onclick="askMain()">Ask Kelly</button></div><div class="chips"><button class="chip" onclick="quick('Free Fire latest update patch notes')">Latest update</button><button class="chip" onclick="quick('Free Fire current leaderboard')">Rankings</button><button class="chip" onclick="quick('Free Fire character skills')">Character skills</button><button class="chip" onclick="quick('Free Fire weapon guide')">Gun guide</button><button class="chip" onclick="quick('Free Fire events today')">Events</button><button class="chip" onclick="quick('Free Fire esports news')">Esports</button></div><div id="mainresult" class="result"></div><p class="note">This browser-only version provides built-in guidance and opens current web searches. To show live search results and use a full AI model directly inside Kelly, we need to connect a secure server/API—never put private API keys in this HTML file.</p></div></section>
-<section id="gallery"><div class="heading"><h2>GAMING VISUAL ZONE</h2><p>Battle royale inspired wallpapers and futuristic environments.</p></div><div class="gallery">
-<div class="imagecard"><img loading="lazy" src="https://images.unsplash.com/photo-151151257,一本道?auto=format&fit=crop&w=1000&q=80" alt="Gaming neon scene" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1000&q=80'"><div class="content"><h3>Neon Arena</h3><p>Cyber-style atmosphere for the command hub.</p></div></div>
-<div class="imagecard"><img loading="lazy" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1000&q=80" alt="Gaming esports lights"><div class="content"><h3>Esports Lights</h3><p>Competition, team energy and tournament vibes.</p></div></div>
-<div class="imagecard"><img loading="lazy" src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1000&q=80" alt="Neon futuristic city"><div class="content"><h3>Night City</h3><p>Dark futuristic scenery with bright neon colors.</p></div></div>
-</div><p class="note">Images are external wallpaper-style visuals; they are not official Free Fire artwork.</p></section>
-<section id="knowledge"><div class="heading"><h2>FREE FIRE QUICK ZONES</h2><p>Choose a category to search for information.</p></div><div class="cards">
-<div class="tile"><div class="icon">🧑‍🎤</div><h3>Characters & Skills</h3><p>Abilities, combinations, EP and tactical roles.</p><button class="chip" onclick="quick('Free Fire characters abilities skill combinations')">Open</button></div>
-<div class="tile"><div class="icon">🔫</div><h3>Weapons</h3><p>Weapon classes, range, recoil and comparisons.</p><button class="chip" onclick="quick('Free Fire weapon guide damage range')">Open</button></div>
-<div class="tile"><div class="icon">🗺️</div><h3>Maps & Modes</h3><p>BR, CS, Lone Wolf maps and mode tips.</p><button class="chip" onclick="quick('Free Fire maps and game modes guide')">Open</button></div>
-<div class="tile"><div class="icon">📰</div><h3>News & Updates</h3><p>Patch notes, seasons, events and announcements.</p><button class="chip" onclick="quick('Free Fire official latest news patch notes')">Open</button></div>
-<div class="tile"><div class="icon">🏆</div><h3>Rankings & Esports</h3><p>Leaderboard searches, esports teams and tournaments.</p><button class="chip" onclick="quick('Free Fire current esports rankings leaderboard')">Open</button></div>
-<div class="tile"><div class="icon">🎓</div><h3>Tips & Training</h3><p>Beginner-friendly tips, tactics and practice guides.</p><button class="chip" onclick="quick('Free Fire beginner gameplay tips training')">Open</button></div>
-</div></section>
-<section id="about"><div class="panel"><h3>About Kelly</h3><p>Kelly is a fan-made Free Fire helper interface built for learning, searches and community gaming information. It is not affiliated with or endorsed by Garena. Game trademarks and official artwork belong to their owners.</p><div class="chips"><a class="chip" href="https://ff.garena.com/" target="_blank" rel="noopener">Official Free Fire site ↗</a><a class="chip" href="https://www.youtube.com/@GarenaFreeFire" target="_blank" rel="noopener">Official YouTube ↗</a></div></div></section>
-</main><footer>© <span id="year"></span> KELLY.AI · Independent fan-made gaming assistant</footer>
-<div class="assistant"><div class="chat" id="chat"><div class="chat-head"><b>✦ Kelly AI</b><button class="chip" onclick="toggleChat()">Close</button></div><div class="chatlog" id="chatlog"><div class="msg kelly">Hey! I'm Kelly. Ask me a Free Fire question, or ask for current info and I'll help you search it.</div></div><div class="searchrow"><input id="chatq" placeholder="Message Kelly…"><button class="btn" onclick="sendChat()">Send</button></div></div><button class="bubble" onclick="toggleChat()" aria-label="Open Kelly assistant">✦</button></div>
+
+<header>
+ <div class="logo">KELLY<span>.AI</span>
+  <small>FREE FIRE INTELLIGENCE</small>
+ </div>
+ <button class="menu" onclick="toggleMenu()">☰</button>
+ <nav id="nav">
+  <a href="#home">Home</a>
+  <a href="#library">FF Library</a>
+  <a href="#tips">Tips</a>
+  <a href="#assistant">Kelly AI</a>
+ </nav>
+</header>
+
+<!-- HERO -->
+
+<div class="hero" id="home">
+
+ <div class="reveal">
+  <div class="badge">⚡ YOUR GAMING COMMAND CENTER</div>
+
+  <h1>LEVEL UP<br><span class="gradient">YOUR GAME.</span></h1>
+
+  <p>
+   Explore Free Fire knowledge, learn about characters,
+   weapons, maps, ranks and strategies.
+   Meet Kelly—your gaming information assistant.
+  </p>
+
+  <div class="actions">
+   <button class="primary" onclick="openChat()">✦ Talk to Kelly</button>
+   <a href="#library" class="secondary">Explore Free Fire</a>
+  </div>
+ </div>
+
+ <div class="heroVisual reveal">
+  <div class="energy"></div>
+  <div class="bigOrb"></div>
+
+  <div class="floatingCard one">
+   ✦ KELLY AI<br>
+   <small>Gaming assistant</small>
+  </div>
+
+  <div class="floatingCard two">
+   ⚡ FREE FIRE HUB<br>
+   <small>Knowledge centre</small>
+  </div>
+ </div>
+</div>
+
+<!-- STATS -->
+
+<section class="reveal">
+ <div class="statGrid">
+  <div class="stat"><b>🎮</b><span>Game modes</span></div>
+  <div class="stat"><b>⚔️</b><span>Weapons</span></div>
+  <div class="stat"><b>🧠</b><span>Skills</span></div>
+  <div class="stat"><b>🏆</b><span>Rank guide</span></div>
+ </div>
+</section>
+
+<!-- LIBRARY -->
+
+<section id="library" class="reveal">
+
+ <div class="sectionHead">
+  <div>
+   <h2>FREE FIRE <span class="gradient">LIBRARY</span></h2>
+   <p>Search gaming topics or select a category.</p>
+  </div>
+ </div>
+
+ <div class="searchBox">
+  <input id="search" placeholder="🔎 Search characters, weapons, maps..." oninput="renderLibrary()">
+ </div>
+
+ <div class="filters" id="filters"></div>
+
+ <div class="grid" id="libraryGrid"></div>
+</section>
+
+<!-- QUICK EXPLORE -->
+
+<section class="reveal">
+
+ <div class="sectionHead">
+  <div>
+   <h2>QUICK <span class="gradient">EXPLORE</span></h2>
+   <p>Tap a topic to open its information.</p>
+  </div>
+ </div>
+
+ <div class="grid">
+  <div class="card">
+   <div class="cardIcon">🎯</div>
+   <h3>Headshot Guide</h3>
+   <p>Learn aim practice, sensitivity basics and control setup.</p>
+   <button onclick="showTopic('headshots')">Open guide →</button>
+  </div>
+
+  <div class="card">
+   <div class="cardIcon">🕹️</div>
+   <h3>HUD Controls</h3>
+   <p>Learn the purpose of your control layout and buttons.</p>
+   <button onclick="showTopic('hud')">Open guide →</button>
+  </div>
+
+  <div class="card">
+   <div class="cardIcon">🏅</div>
+   <h3>Rank Progress</h3>
+   <p>Understand ranked progression and match strategy.</p>
+   <button onclick="showTopic('rank')">Open guide →</button>
+  </div>
+
+  <div class="card">
+   <div class="cardIcon">🗺️</div>
+   <h3>Map Awareness</h3>
+   <p>Learn landmarks, positioning and zone awareness.</p>
+   <button onclick="showTopic('map')">Open guide →</button>
+  </div>
+
+  <div class="card">
+   <div class="cardIcon">🔫</div>
+   <h3>Weapon Classes</h3>
+   <p>Understand different weapon types and their roles.</p>
+   <button onclick="showTopic('weapons')">Open guide →</button>
+  </div>
+
+  <div class="card">
+   <div class="cardIcon">📰</div>
+   <h3>Official Updates</h3>
+   <p>Go to official Free Fire news and announcements.</p>
+   <button onclick="window.open('https://ff.garena.com/','_blank')">Visit official site ↗</button>
+  </div>
+ </div>
+</section>
+
+<!-- TIPS -->
+
+<section id="tips" class="reveal">
+
+ <div class="sectionHead">
+  <div>
+   <h2>GAMING <span class="gradient">KNOWLEDGE</span></h2>
+   <p>Helpful information for improving your game.</p>
+  </div>
+ </div>
+
+ <div class="twoCols">
+  <div class="tipBox">
+   <h3>🎯 Aim & Accuracy</h3>
+   <p>
+    Keep your controls comfortable. Practise in the training
+    area, pay attention to how your aim responds, and make
+    small adjustments instead of changing every setting at once.
+   </p>
+  </div>
+
+  <div class="tipBox">
+   <h3>🛡️ Survival & Awareness</h3>
+   <p>
+    Watch the safe zone, use cover, pay attention to
+    surroundings, and avoid rushing into fights without
+    understanding your position.
+   </p>
+  </div>
+
+  <div class="tipBox">
+   <h3>🤝 Teamwork</h3>
+   <p>
+    Communicate with teammates, share information,
+    stay close enough to support each other and
+    plan rotations together.
+   </p>
+  </div>
+
+  <div class="tipBox">
+   <h3>⚙️ Settings</h3>
+   <p>
+    Comfortable sensitivity and button placement depend
+    on your device, screen condition and play style.
+    Use settings that feel controllable.
+   </p>
+  </div>
+ </div>
+</section>
+
+<!-- ASSISTANT -->
+
+<section id="assistant" class="reveal">
+
+ <div class="sectionHead">
+  <div>
+   <h2>MEET <span class="gradient">KELLY</span></h2>
+   <p>Your built-in Free Fire information assistant.</p>
+  </div>
+ </div>
+
+ <div class="panel">
+  <h3>Ask Kelly anything</h3>
+  <p>Try questions about weapons, characters, ranks, maps, skills or game modes.</p>
+
+  <div class="searchBox">
+   <input id="mainQuestion" placeholder="Type your question here..." onkeydown="if(event.key==='Enter')mainAsk()">
+   <button class="primary" onclick="mainAsk()">Ask ✦</button>
+  </div>
+
+  <div class="filters">
+   <button class="filter" onclick="askPreset('Explain Free Fire characters')">Characters</button>
+   <button class="filter" onclick="askPreset('Tell me about weapons')">Weapons</button>
+   <button class="filter" onclick="askPreset('Explain ranked mode')">Ranks</button>
+   <button class="filter" onclick="askPreset('Give me map tips')">Maps</button>
+   <button class="filter" onclick="askPreset('Explain Clash Squad')">Clash Squad</button>
+  </div>
+
+  <div id="mainAnswer" style="display:none" class="tipBox"></div>
+
+  <p style="color:var(--muted);font-size:.8rem">
+   Kelly currently uses a built-in knowledge library.
+   Live web search and a real AI connection are not yet enabled.
+  </p>
+ </div>
+</section>
+
+<footer>
+ Kelly.AI • Free Fire Fan Project • <span id="year"></span>
+ <br><br>
+ <a href="https://ff.garena.com/" target="_blank">Official Free Fire website</a>
+</footer>
+
+<!-- CHAT WINDOW -->
+
+<div class="chatWindow" id="chatWindow">
+
+ <div class="chatHeader">
+  <strong>✦ KELLY AI</strong>
+  <button onclick="closeChat()">✕</button>
+ </div>
+
+ <div class="chatLog" id="chatLog">
+  <div class="message bot">
+   Hello! I'm Kelly. Ask me about Free Fire and I'll search my built-in knowledge.
+  </div>
+ </div>
+
+ <div class="chatInput">
+  <input id="chatInput" placeholder="Ask Kelly..." onkeydown="if(event.key==='Enter')sendChat()">
+  <button onclick="sendChat()">➤</button>
+ </div>
+</div>
+
+<!-- FLOATING ORB -->
+
+<button class="orbButton" id="orb" aria-label="Kelly AI">✦</button>
+
+<button class="soundButton" id="soundBtn" onclick="toggleSound()">🔊 Sound On</button>
+
 <script>
-document.getElementById('year').textContent=new Date().getFullYear();
-const searchURL=q=>'https://www.google.com/search?q='+encodeURIComponent(q+' Free Fire');
-function quick(q){document.getElementById('mainq').value=q;askMain()}
-function askMain(){let q=document.getElementById('mainq').value.trim();if(!q)return;let r=document.getElementById('mainresult');r.innerHTML='<b>Kelly:</b> I can help with that. Here is a current web-search link for your question:<br><a target="_blank" rel="noopener" href="'+searchURL(q)+'">🔎 Search the web for: '+escapeHTML(q)+'</a><br><small>Search opens in a new tab. I do not fetch live web results directly in this prototype.</small>';r.classList.add('show')}
-function escapeHTML(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function toggleChat(){document.getElementById('chat').classList.toggle('open')}
-function addMsg(text,cls){let log=document.getElementById('chatlog'),d=document.createElement('div');d.className='msg '+cls;d.textContent=text;log.appendChild(d);log.scrollTop=log.scrollHeight}
-function sendChat(){let box=document.getElementById('chatq'),q=box.value.trim();if(!q)return;addMsg(q,'user');box.value='';let lower=q.toLowerCase(),reply='';
-if(lower.includes('hello')||lower.includes('hi'))reply="Hey! What Free Fire topic are we exploring today—skills, guns, ranks, updates or gameplay?";
-else if(lower.includes('skill')||lower.includes('character'))reply="Skill combinations depend on your mode and play style. Tell me whether you're playing CS or BR, then I can suggest a balanced combination. For current character changes, use the web search link below.";
-else if(lower.includes('gun')||lower.includes('weapon'))reply="Weapon choice depends on range and comfort. Try comparing close-range, mid-range and long-range options, and use the search link to check current stats or updates.";
-else if(lower.includes('rank')||lower.includes('leaderboard'))reply="Rankings change by season and region, so I shouldn't invent live scores. Search the latest leaderboard here:";
-else if(lower.includes('update')||lower.includes('news')||lower.includes('event'))reply="For the newest announcements, patch notes and events, check the current web search:";
-else reply="I can help explain Free Fire topics and guide your search. For current or very specific information, use the live web-search link below.";
-addMsg(reply,'kelly');let a=document.createElement('a');a.href=searchURL(q);a.target='_blank';a.rel='noopener';a.textContent='🔎 Search current web information';a.style.color='var(--cyan)';document.getElementById('chatlog').appendChild(a);document.getElementById('chatlog').scrollTop=99999}
-document.getElementById('chatq').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat()});
-document.getElementById('mainq').addEventListener('keydown',e=>{if(e.key==='Enter')askMain()});
-</script></body></html>'''
-out='/mnt/data/Kelly_AI_Upgrade_2.html'
-with open(out,'w',encoding='utf-8') as f:f.write(html)
-zip_path='/mnt/data/Kelly_AI_Upgrade_2.zip'
-with zipfile.ZipFile(zip_path,'w',zipfile.ZIP_DEFLATED) as z:z.write(out,arcname='index.html')
-print("Created upgrade files:",out,zip_path,"HTML size:",len(html))
+
+/* ===================================
+   KELLY CONTENT LIBRARY
+=================================== */
+
+const data=[
+
+{
+category:"Characters",
+icon:"👤",
+title:"Character Abilities",
+keywords:"character abilities skill passive active combination",
+text:"Character abilities have different roles. Some focus on movement, recovery, information, defence or support. When choosing characters, consider your mode, teammates and preferred play style. Ability details can change through updates."
+},
+
+{
+category:"Characters",
+icon:"⚡",
+title:"Active Skills",
+keywords:"active skill ability activation",
+text:"Active abilities usually require activation and may have a cooldown. Read the skill description in-game to understand its duration, conditions and cooldown before building a combination."
+},
+
+{
+category:"Characters",
+icon:"✨",
+title:"Passive Skills",
+keywords:"passive skill always active",
+text:"Passive abilities generally provide an effect without a separate activation button. Check their descriptions and see how they complement your play style."
+},
+
+{
+category:"Weapons",
+icon:"🔫",
+title:"Assault Rifles",
+keywords:"ar rifle automatic mid range",
+text:"Assault rifles are versatile weapons often used at medium range. Different rifles vary in recoil, firing speed, damage and accuracy. Learn the behaviour of the weapon you prefer."
+},
+
+{
+category:"Weapons",
+icon:"🎯",
+title:"Sniper Rifles",
+keywords:"sniper long range scope",
+text:"Sniper rifles are designed for longer-distance engagements. Use cover, consider your surroundings and avoid staying in one exposed position."
+},
+
+{
+category:"Weapons",
+icon:"💥",
+title:"Shotguns",
+keywords:"shotgun close range m1887 m590",
+text:"Shotguns are designed for close-range encounters. Positioning, timing, movement and understanding the weapon's firing pattern are important."
+},
+
+{
+category:"Weapons",
+icon:"🔹",
+title:"SMGs",
+keywords:"smg submachine gun close medium",
+text:"Submachine guns are generally associated with faster firing and close-to-medium range. Learn their recoil and effective distance."
+},
+
+{
+category:"Weapons",
+icon:"🔧",
+title:"Weapon Attachments",
+keywords:"attachments muzzle stock magazine grip scope",
+text:"Attachments may change weapon handling. Read their in-game descriptions and test how they affect the weapon you use."
+},
+
+{
+category:"Maps",
+icon:"🗺️",
+title:"Battle Royale Maps",
+keywords:"map br battle royale bermuda alpine kalahari purgatory",
+text:"Battle Royale maps contain different landmarks, terrain, buildings and rotation routes. Learn the names of important locations and pay attention to the zone."
+},
+
+{
+category:"Maps",
+icon:"🏙️",
+title:"Map Awareness",
+keywords:"awareness positioning zone rotation cover",
+text:"Watch the minimap, identify cover, keep track of the safe zone, and plan your route. Avoid running into unfamiliar areas without checking your surroundings."
+},
+
+{
+category:"Modes",
+icon:"🏆",
+title:"Battle Royale",
+keywords:"br battle royale survival mode",
+text:"Battle Royale is a survival mode where players or squads compete while the playable area changes. Loot, positioning and survival decisions matter."
+},
+
+{
+category:"Modes",
+icon:"⚔️",
+title:"Clash Squad",
+keywords:"cs clash squad round team mode",
+text:"Clash Squad is a round-based team mode. Team coordination, buying decisions, communication and adapting to each round are important."
+},
+
+{
+category:"Modes",
+icon:"🥊",
+title:"Lone Wolf",
+keywords:"lone wolf 1v1 duel",
+text:"Lone Wolf focuses on individual matchups. Practice awareness, aim control, timing and learning from your opponent."
+},
+
+{
+category:"Ranks",
+icon:"🥉",
+title:"Ranked Progress",
+keywords:"rank ranked points stars heroic master grandmaster",
+text:"Ranked progression depends on your performance and the current season rules. Check the in-game ranked page for the current tiers, requirements and rewards."
+},
+
+{
+category:"Ranks",
+icon:"🏅",
+title:"Heroic Rank",
+keywords:"heroic elite heroic stars",
+text:"Heroic is a ranked tier. Your progress and stars or points depend on the current ranked system. Check the game for current season details."
+},
+
+{
+category:"Ranks",
+icon:"👑",
+title:"Grandmaster",
+keywords:"grandmaster gm leaderboard ranking",
+text:"Grandmaster is a high competitive rank. Its eligibility and ranking rules can vary by season and region. The in-game ranked screen is the reliable source for current requirements."
+},
+
+{
+category:"Pets",
+icon:"🐾",
+title:"Pets",
+keywords:"pet companion abilities",
+text:"Pets can provide gameplay effects depending on their ability. Review the pet skill description and select one that complements your preferred mode."
+},
+
+{
+category:"Gameplay",
+icon:"🎯",
+title:"Aim Practice",
+keywords:"aim accuracy headshot training",
+text:"Use the training area to practise aiming and become familiar with your controls. Focus on consistency and comfortable movements instead of changing all settings at once."
+},
+
+{
+category:"Gameplay",
+icon:"🕹️",
+title:"HUD Layout",
+keywords:"hud controls buttons layout two finger three finger",
+text:"HUD means Heads-Up Display. Button positions, sizes and spacing affect comfort and control. Choose a layout you can reach comfortably and practise with it before changing it again."
+},
+
+{
+category:"Gameplay",
+icon:"📱",
+title:"Sensitivity",
+keywords:"sensitivity sensi camera aiming settings dpi",
+text:"Sensitivity depends on device, screen responsiveness and personal control. Change one setting at a time and test it. If your touchscreen misses inputs, sensitivity settings cannot fully fix the hardware problem."
+},
+
+{
+category:"Gameplay",
+icon:"🏃",
+title:"Movement",
+keywords:"movement running jumping crouching",
+text:"Movement is about awareness, positioning and timing. Avoid unnecessary movement that makes your controls difficult to manage. Practise in a comfortable way."
+},
+
+{
+category:"Gameplay",
+icon:"🤝",
+title:"Teamwork",
+keywords:"team teammate squad communication revive",
+text:"Communicate, share useful information, stay aware of teammates and coordinate your movements. Teamwork can make decisions easier during a match."
+},
+
+{
+category:"Esports",
+icon:"🎮",
+title:"Free Fire Esports",
+keywords:"esports tournament competition professional",
+text:"Free Fire esports features organized competitive tournaments. Event schedules, teams and results change. Check official Free Fire esports announcements for verified information."
+},
+
+{
+category:"Updates",
+icon:"📰",
+title:"Official Updates",
+keywords:"update news patch notes new version",
+text:"This website does not currently retrieve live news. For current patch notes, events, releases and announcements, visit the official Free Fire website."
+},
+
+{
+category:"Gameplay",
+icon:"🛡️",
+title:"Survival",
+keywords:"survival cover health safe zone",
+text:"Pay attention to the zone, use cover, keep track of your surroundings and consider whether a fight is worth taking."
+},
+
+{
+category:"Gameplay",
+icon:"🧠",
+title:"Learning From Matches",
+keywords:"improve review learn mistakes gameplay",
+text:"After a match, think about what went well and what was confusing. Practise one area at a time and take breaks when you need them."
+}
+
+];
+
+/* ===================================
+   LIBRARY DISPLAY
+=================================== */
+
+const categories=["All",...new Set(data.map(x=>x.category))];
+
+let activeCategory="All";
+
+function renderFilters(){
+
+let f=document.getElementById("filters");
+
+f.innerHTML="";
+
+categories.forEach(cat=>{
+
+let b=document.createElement("button");
+
+b.className="filter"+(activeCategory===cat?" active":"");
+
+b.textContent=cat;
+
+b.onclick=()=>{
+
+activeCategory=cat;
+
+renderFilters();
+
+renderLibrary();
+
+};
+
+f.appendChild(b);
+
+});
+
+}
+
+function renderLibrary(){
+
+let q=document.getElementById("search").value.toLowerCase();
+
+let grid=document.getElementById("libraryGrid");
+
+grid.innerHTML="";
+
+let filtered=data.filter(item=>{
+
+let matchesCategory=
+activeCategory==="All"||item.category===activeCategory;
+
+let words=(item.title+" "+item.category+" "+item.keywords+" "+item.text).toLowerCase();
+
+return matchesCategory&&words.includes(q);
+
+});
+
+if(filtered.length===0){
+
+grid.innerHTML='<div class="noResults">No matching topic found. Try another search.</div>';
+
+return;
+
+}
+
+filtered.forEach(item=>{
+
+let card=document.createElement("article");
+
+card.className="card libraryCard";
+
+card.innerHTML=`
+<div class="cardIcon">${item.icon}</div>
+<span class="tag">${item.category}</span>
+<h3>${item.title}</h3>
+<p>${item.text}</p>
+<button>Ask Kelly about this →</button>
+`;
+
+card.querySelector("button").onclick=()=>{
+
+openChat();
+
+addMessage("Tell me about "+item.title,"me");
+
+addMessage(item.text,"bot");
+
+};
+
+grid.appendChild(card);
+
+});
+
+}
+
+renderFilters();
+renderLibrary();
+
+/* ===================================
+   ANSWERS
+=================================== */
+
+function getAnswer(question){
+
+let q=question.toLowerCase();
+
+if(/^(hi|hello|hey|yo|good morning)/.test(q)){
+
+return "Hello! I'm Kelly AI. Ask me about Free Fire characters, weapons, skills, maps, ranks, modes, pets or gameplay.";
+
+}
+
+if(q.includes("who are you")||q.includes("your name")){
+
+return "I'm Kelly AI, your Free Fire-themed gaming assistant. This version uses a built-in information library.";
+
+}
+
+if(q.includes("free fire")){
+
+return "Free Fire is a mobile battle royale game. I can help explain its modes, characters, weapons, maps, ranked play and general gameplay. What topic do you want to learn about?";
+
+}
+
+let found=data.filter(item=>{
+
+let words=item.title.toLowerCase().split(" ");
+
+return q.includes(item.title.toLowerCase())||
+item.keywords.split(" ").some(word=>word.length>3&&q.includes(word));
+
+});
+
+if(found.length){
+
+return found.slice(0,3).map(x=>
+x.icon+" "+x.title+"\n"+x.text
+).join("\n\n");
+
+}
+
+return "I don't have a specific answer in my built-in library for that question yet.\n\nTry asking about characters, weapons, maps, ranks, pets, Clash Squad, Battle Royale, sensitivity, HUD, aim practice or movement.\n\nLive internet search and real AI responses are not connected yet.";
+}
+
+/* Main page question */
+
+function mainAsk(){
+
+let input=document.getElementById("mainQuestion");
+
+let q=input.value.trim();
+
+if(!q)return;
+
+let box=document.getElementById("mainAnswer");
+
+box.style.display="block";
+
+box.innerHTML="";
+
+let title=document.createElement("h3");
+
+title.textContent="✦ Kelly's Answer";
+
+let text=document.createElement("p");
+
+text.textContent=getAnswer(q);
+
+box.append(title,text);
+
+box.scrollIntoView({behavior:"smooth",block:"center"});
+
+playSound(650);
+
+}
+
+function askPreset(q){
+
+document.getElementById("mainQuestion").value=q;
+
+mainAsk();
+
+}
+
+/* Quick topics */
+
+function showTopic(topic){
+
+let q={
+
+headshots:"Explain aim practice and headshots",
+
+hud:"Explain HUD controls",
+
+rank:"Explain ranked progression",
+
+map:"Give me map awareness tips",
+
+weapons:"Explain weapon classes"
+
+}[topic]||topic;
+
+askPreset(q);
+
+}
+
+/* ===================================
+   CHAT
+=================================== */
+
+function openChat(){
+
+document.getElementById("chatWindow").classList.add("open");
+
+document.getElementById("chatInput").focus();
+
+}
+
+function closeChat(){
+
+document.getElementById("chatWindow").classList.remove("open");
+
+}
+
+function toggleChat(){
+
+let chat=document.getElementById("chatWindow");
+
+chat.classList.toggle("open");
+
+}
+
+function addMessage(text,type){
+
+let m=document.createElement("div");
+
+m.className="message "+type;
+
+m.textContent=text;
+
+let log=document.getElementById("chatLog");
+
+log.appendChild(m);
+
+log.scrollTop=log.scrollHeight;
+
+}
+
+function sendChat(){
+
+let input=document.getElementById("chatInput");
+
+let q=input.value.trim();
+
+if(!q)return;
+
+addMessage(q,"me");
+
+input.value="";
+
+setTimeout(()=>{
+
+addMessage(getAnswer(q),"bot");
+
+},200);
+
+playSound(600);
+
+}
+
+/* ===================================
+   SOUND
+=================================== */
+
+let soundOn=true;
+
+let audio;
+
+function playSound(freq=500){
+
+if(!soundOn)return;
+
+try{
+
+audio=audio||new(window.AudioContext||window.webkitAudioContext)();
+
+if(audio.state==="suspended")audio.resume();
+
+let osc=audio.createOscillator();
+
+let gain=audio.createGain();
+
+osc.connect(gain);
+
+gain.connect(audio.destination);
+
+osc.frequency.value=freq;
+
+osc.type="sine";
+
+gain.gain.setValueAtTime(.04,audio.currentTime);
+
+gain.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.12);
+
+osc.start();
+
+osc.stop(audio.currentTime+.13);
+
+}catch(e){}
+
+}
+
+function toggleSound(){
+
+soundOn=!soundOn;
+
+document.getElementById("soundBtn").textContent=
+
+soundOn?"🔊 Sound On":"🔇 Sound Off";
+
+if(soundOn)playSound(650);
+
+}
+
+/* ===================================
+   ORB COLORS - TAP
+=================================== */
+
+const colors=[
+
+["#55eaff","#6957ff","#55eaff"],
+
+["#d8aaff","#922dff","#c68aff"],
+
+["#ffb4b4","#ff294f","#ff4969"],
+
+["#aaffd0","#00b875","#42ffad"],
+
+["#fff0a8","#ffb000","#ffd166"],
+
+["#ffc4ef","#ff35ba","#ff65d8"],
+
+["#a8c7ff","#2866ff","#73a0ff"]
+
+];
+
+let colorIndex=0;
+
+const orb=document.getElementById("orb");
+
+function changeColor(){
+
+colorIndex=(colorIndex+1)%colors.length;
+
+let c=colors[colorIndex];
+
+orb.style.setProperty("--orb1",c[0]);
+
+orb.style.setProperty("--orb2",c[1]);
+
+orb.style.boxShadow="0 0 28px "+c[2]+", inset -8px -10px 20px #0006";
+
+orb.style.borderColor=c[0];
+
+orb.classList.remove("pulse");
+
+void orb.offsetWidth;
+
+orb.classList.add("pulse");
+
+playSound(450+colorIndex*90);
+
+}
+
+/* ===================================
+   ORB DRAG + TAP
+=================================== */
+
+let pointerStartX=0;
+let pointerStartY=0;
+let orbStartX=0;
+let orbStartY=0;
+let isDragging=false;
+let hasMoved=false;
+
+orb.addEventListener("pointerdown",function(e){
+
+isDragging=true;
+hasMoved=false;
+
+pointerStartX=e.clientX;
+pointerStartY=e.clientY;
+
+let rect=orb.getBoundingClientRect();
+
+orbStartX=rect.left;
+orbStartY=rect.top;
+
+orb.setPointerCapture(e.pointerId);
+
+e.preventDefault();
+
+});
+
+orb.addEventListener("pointermove",function(e){
+
+if(!isDragging)return;
+
+let dx=e.clientX-pointerStartX;
+let dy=e.clientY-pointerStartY;
+
+if(Math.abs(dx)>8||Math.abs(dy)>8){
+
+hasMoved=true;
+
+}
+
+if(hasMoved){
+
+let x=Math.max(0,Math.min(window.innerWidth-70,orbStartX+dx));
+
+let y=Math.max(0,Math.min(window.innerHeight-70,orbStartY+dy));
+
+orb.style.left=x+"px";
+orb.style.top=y+"px";
+orb.style.right="auto";
+orb.style.bottom="auto";
+
+}
+
+});
+
+function releaseOrb(){
+
+if(!isDragging)return;
+
+isDragging=false;
+
+if(!hasMoved){
+
+changeColor();
+
+toggleChat();
+
+}
+
+}
+
+orb.addEventListener("pointerup",releaseOrb);
+
+orb.addEventListener("pointercancel",releaseOrb);
+
+/* ===================================
+   MENU + SCROLL ANIMATION
+=================================== */
+
+function toggleMenu(){
+
+document.getElementById("nav").classList.toggle("open");
+
+}
+
+document.querySelectorAll("nav a").forEach(a=>{
+
+a.addEventListener("click",()=>{
+
+document.getElementById("nav").classList.remove("open");
+
+});
+
+});
+
+let observer=new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.classList.add("show");
+
+observer.unobserve(entry.target);
+
+}
+
+});
+
+},{threshold:.1});
+
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+
+document.getElementById("year").textContent=new Date().getFullYear();
+
+</script>
+
+</body>
+    </html>
